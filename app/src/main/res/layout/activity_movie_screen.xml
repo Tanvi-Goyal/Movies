@@ -64,26 +64,9 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyler_one"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
-
-        </android.support.v7.widget.RecyclerView>
-
-        <TextView
-            android:id="@+id/upcoming_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/audiowide"
-            android:text="Popular Movies"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-            android:textStyle="bold"
-            app:fontFamily="@font/raleway_medium" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyler_two"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginTop="8dp">
 
         </android.support.v7.widget.RecyclerView>

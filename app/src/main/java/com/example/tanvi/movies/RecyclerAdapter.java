@@ -9,13 +9,13 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.List;
 
 class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
 
+    private String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/w500";
     private List<Movie> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
@@ -36,19 +36,16 @@ class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.V
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.movie_name.setText(mData.get(position).getName());
-        holder.movie_year.setText(mData.get(position).getYear());
-        holder.movie_rating.setRating((float)mData.get(position).getRating());
-//        Glide.with(holder.itemView.getContext()).load(mData.get(position).getImg()).into(holder.movie_poster);
-
-
+        holder.bind(mData.get(position));
 
     }
 
     // total number of rows
     @Override
     public int getItemCount() {
-        return mData.size();
+        if (mData != null)
+            return mData.size();
+        else return 0;
     }
 
 
@@ -65,13 +62,26 @@ class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.V
             movie_poster = itemView.findViewById(R.id.movie_img);
             movie_name = itemView.findViewById(R.id.movie_title);
             movie_year = itemView.findViewById(R.id.movie_year);
-            movie_rating = itemView.findViewById(R.id.movie_rating);
+//            movie_rating = itemView.findViewById(R.id.movie_rating);
             itemView.setOnClickListener(this);
         }
+
 
         @Override
         public void onClick(View view) {
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+        }
+
+        public void bind(Movie movie) {
+            movie_year.setText(movie.getReleaseDate().split("-")[0]);
+            movie_name.setText(movie.getTitle());
+//            movie_rating.setRating((movie.getRating()/10)*5);
+
+//            Picasso.with(itemView.getContext()).load(IMAGE_BASE_URL + movie.getPosterPath()).into(movie_poster);
+//            Glide.with(itemView)
+//                    .load(IMAGE_BASE_URL + movie.getPosterPath())
+//                    .into(movie_poster);
+//            genres.setText("");
         }
     }
 

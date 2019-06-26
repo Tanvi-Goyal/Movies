@@ -1,58 +1,116 @@
 package com.example.tanvi.movies;
 
-public class Movie {
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-    String name;
-    String year;
-    double rating;
-    String img;
-    String url;
+import java.io.Serializable;
+import java.util.List;
 
-    public Movie(String name, String year, double rating, String img, String url) {
-        this.name = name;
-        this.year = year;
+public class Movie implements Serializable {
+
+    @SerializedName("id")
+    @Expose
+    private int id;
+
+    @SerializedName("imdb_id")
+    @Expose
+    private String imdb_id;
+
+    @SerializedName("title")
+    @Expose
+    private String title;
+
+    @SerializedName("poster_path")
+    @Expose
+    private String posterPath;
+
+    @SerializedName("release_date")
+    @Expose
+    private String releaseDate;
+
+    @SerializedName("vote_average")
+    @Expose
+    private float rating;
+
+    @SerializedName("genre_ids")
+    @Expose
+    private List<Integer> genreIds;
+
+    public Movie() {
+    }
+
+    public Movie(int id, String imdb_id, String title, String posterPath, String releaseDate, float rating, List<Integer> genreIds) {
+        this.id = id;
+        this.imdb_id = imdb_id;
+        this.title = title;
+        this.posterPath = posterPath;
+        this.releaseDate = releaseDate;
         this.rating = rating;
-        this.img = img;
-        this.url = url;
+        this.genreIds = genreIds;
     }
 
-    public String getName() {
-        return name;
+//    public Movie(int id, String title, String posterPath, String releaseDate, float rating, List<Integer> genreIds) {
+//        this.id = id;
+//        this.title = title;
+//        this.posterPath = posterPath;
+//        this.releaseDate = releaseDate;
+//        this.rating = rating;
+//        this.genreIds = genreIds;
+//    }
+
+    public int getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getYear() {
-        return year;
+    public String getImdb_id() {
+        return imdb_id;
     }
 
-    public void setYear(String year) {
-        this.year = year;
+    public void setImdb_id(String imdb_id) {
+        this.imdb_id = imdb_id;
     }
 
-    public double getRating() {
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getPosterPath() {
+        return posterPath;
+    }
+
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 
-    public String getImg() {
-        return img;
+    public List<Integer> getGenreIds() {
+        return genreIds;
     }
 
-    public void setImg(String img) {
-        this.img = img;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
+    public void setGenreIds(List<Integer> genreIds) {
+        this.genreIds = genreIds;
     }
 }
