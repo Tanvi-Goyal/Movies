@@ -1,4 +1,4 @@
-package com.example.tanvi.movies;
+package com.example.tanvi.movies.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +8,9 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Toast;
+
+import com.example.tanvi.movies.R;
+import com.example.tanvi.movies.utils.MyWebViewClient;
 
 public class WebViewActivity extends AppCompatActivity {
 

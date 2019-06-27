@@ -1,10 +1,12 @@
-package com.example.tanvi.movies;
+package com.example.tanvi.movies.utils;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.tanvi.movies.model.Movie;
 
 public class SQLiteDatabaseHelper extends SQLiteOpenHelper {
 

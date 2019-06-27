@@ -1,7 +1,11 @@
-package com.example.tanvi.movies;
+package com.example.tanvi.movies.utils;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
+
+import com.example.tanvi.movies.model.Movie;
+import com.example.tanvi.movies.model.MovieId;
+import com.example.tanvi.movies.model.MovieResponse;
 
 import java.util.Timer;
 import java.util.TimerTask;

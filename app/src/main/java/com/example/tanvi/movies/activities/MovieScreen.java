@@ -1,4 +1,4 @@
-package com.example.tanvi.movies;
+package com.example.tanvi.movies.activities;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -15,13 +15,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.tanvi.movies.R;
+import com.example.tanvi.movies.model.Movie;
+import com.example.tanvi.movies.utils.MoviesRepository;
+import com.example.tanvi.movies.utils.OnGetMoviesCallback;
+import com.example.tanvi.movies.utils.SQLiteDatabaseHelper;
+
 import java.util.ArrayList;
 
-//import com.example.tanvi.movies.utils.NetworkUtils;
+public class MovieScreen extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener {
 
-public class MovieScreen extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener{
-
-    RecyclerView recyclerView_one, recyclerView_two;
+    RecyclerView recyclerView_one;
     android.support.v7.widget.SearchView searchView;
     public static MyRecyclerViewAdapter adapter;
     LinearLayoutManager layoutManager;
