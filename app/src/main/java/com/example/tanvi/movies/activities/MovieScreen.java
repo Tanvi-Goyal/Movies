@@ -58,7 +58,6 @@ public class MovieScreen extends AppCompatActivity implements MyRecyclerViewAdap
         recyclerView_one.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
-        // search filter functionality
         searchView.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
