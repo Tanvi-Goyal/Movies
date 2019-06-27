@@ -1,14 +1,18 @@
 package com.example.tanvi.movies;
 
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.util.Log;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static android.support.constraint.Constraints.TAG;
 
 public class MoviesRepository {
 
@@ -17,7 +21,7 @@ public class MoviesRepository {
     private static final String API_KEY = "f237940c743ded3e0dfd0193a5b6fb5b";
 
     private static MoviesRepository repository;
-
+    private Timer timer;
     private TMDbApi api;
 
     private MoviesRepository(TMDbApi api) {
@@ -48,18 +52,30 @@ public class MoviesRepository {
                             final MovieResponse moviesResponse = response.body();
                             if (moviesResponse != null && moviesResponse.getMoviesId() != null) {
 
-                                for (int i = 0; i < moviesResponse.getMoviesId().size(); i++) {
-                                    final int finalI = i;
-                                    new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            getMovieDetails(moviesResponse.getMoviesId().get(finalI), callback);
 
+                                TimerTask task = new TimerTask() {
+                                    int index = 0;
+
+                                    @Override
+                                    public void run() {
+                                        if (index < moviesResponse.getMoviesId().size()) {
+                                            try {
+                                                getMovieDetails(moviesResponse.getMoviesId().get(index), callback);
+
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+
+                                            index++;
+                                        } else {
+                                            Log.i(TAG, "run: " + "ALL MOVIEs ADDED");
+                                            timer.cancel();
                                         }
-                                    }, 10000);
+                                    }
+                                };
 
-                                }
-
+                                timer = new Timer();
+                                timer.scheduleAtFixedRate(task, 0, 5000);
 
                             } else {
                                 callback.onError();
@@ -79,29 +95,24 @@ public class MoviesRepository {
     private void getMovieDetails(MovieId moviesId, final OnGetMoviesCallback callback) {
 
         api.getDetails(moviesId.getId(), API_KEY)
-                    .enqueue(new Callback<Movie>() {
-                        @Override
-                        public void onResponse(Call<Movie> call, Response<Movie> response) {
-                            if (response.isSuccessful()) {
-                                Movie movie = response.body();
-                                if (movie != null) {
-                                    Log.w("TAG", "Retrievd " + movie.getTitle());
-                                    callback.onSuccess(movie);
-//                                    try {
-//                                        Thread.sleep(10000);
-//                                    } catch (InterruptedException e) {
-//                                        e.printStackTrace();
-//                                    }
-                                }
+                .enqueue(new Callback<Movie>() {
+                    @Override
+                    public void onResponse(Call<Movie> call, Response<Movie> response) {
+                        if (response.isSuccessful()) {
+                            Movie movie = response.body();
+                            if (movie != null) {
+                                Log.w("TAG", "Retrievd " + movie.getTitle());
+                                callback.onSuccess(movie);
                             }
-
                         }
 
-                        @Override
-                        public void onFailure(Call<Movie> call, Throwable t) {
-                            callback.onError();
-                        }
-                    });
+                    }
+
+                    @Override
+                    public void onFailure(Call<Movie> call, Throwable t) {
+                        callback.onError();
+                    }
+                });
 
     }
 

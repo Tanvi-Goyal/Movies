@@ -7,18 +7,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.makeramen.roundedimageview.RoundedImageView;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
 
 class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> implements Filterable {
 
-    private String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/w500";
+    private String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
     private List<Movie> mData;
     private List<Movie> filteredData;
     private LayoutInflater mInflater;
@@ -91,7 +92,7 @@ class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.V
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        RoundedImageView movie_poster;
+        ImageView movie_poster;
         TextView movie_name;
         TextView movie_year;
         RatingBar movie_rating;
@@ -118,10 +119,10 @@ class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.V
 //            movie_rating.setRating((movie.getRating()/10)*5);
 
 //            Picasso.with(itemView.getContext()).load(IMAGE_BASE_URL + movie.getPosterPath()).into(movie_poster);
-//            Glide.with(itemView)
-//                    .load(IMAGE_BASE_URL + movie.getPosterPath())
-//                    .into(movie_poster);
-//            genres.setText("");
+            Glide.with(itemView)
+                    .load(IMAGE_BASE_URL + movie.getPosterPath())
+                    .into(movie_poster);
+
         }
     }
 

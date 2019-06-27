@@ -21,7 +21,7 @@ public class SQLiteDatabaseHelper extends SQLiteOpenHelper {
     public static final String KEY_DETAIL_URL = "detail_url";
     public static final String SQL_DELETE_MOVIES =
             "DROP TABLE IF EXISTS " + TABLE_NAME;
-    private static final String IMDB_BASE_URL = "";
+    private static final String IMDB_BASE_URL = "https://www.imdb.com/title/";
     private static final String SQL_CREATE_MOVIES =
             "CREATE TABLE movies (" + KEY_MOVIE_ID + "  INTEGER PRIMARY KEY, "
                     + KEY_MOVIE_IMDB_ID + "  TEXT, " + KEY_MOVIE_TITLE + " TEXT, "
