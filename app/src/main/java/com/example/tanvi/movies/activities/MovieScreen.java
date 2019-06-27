@@ -50,7 +50,6 @@ public class MovieScreen extends AppCompatActivity implements MyRecyclerViewAdap
 
         showProcessDialog();
 
-        // set up the RecyclerView
         layoutManager = new GridLayoutManager(this, 2);
         recyclerView_one.setLayoutManager(layoutManager);
         adapter = new MyRecyclerViewAdapter(MovieScreen.this, movies);
