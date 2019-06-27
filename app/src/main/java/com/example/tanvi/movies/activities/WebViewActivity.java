@@ -58,12 +58,17 @@ public class WebViewActivity extends AppCompatActivity {
             public void onClick(View v) {
                 int currentPosition = Integer.parseInt(position);
 
-                if (Integer.parseInt(position) < 0) {
+                if (Integer.parseInt(position) <= 0) {
                     backward.setClickable(false);
                     Toast.makeText(WebViewActivity.this, getString(R.string.no_previous_movie), Toast.LENGTH_SHORT).show();
                 } else {
-                    url = MovieScreen.adapter.getItem(--currentPosition).getDetail_url();
-                    webView.loadUrl(url);
+                    if (MovieScreen.adapter.getItemCount() > --currentPosition) {
+                        url = MovieScreen.adapter.getItem(currentPosition).getDetail_url();
+                        webView.loadUrl(url);
+                    } else {
+                        Toast.makeText(WebViewActivity.this, getString(R.string.no_previous_movie), Toast.LENGTH_SHORT).show();
+                    }
+
                 }
                 position = String.valueOf(currentPosition);
 
@@ -78,8 +83,13 @@ public class WebViewActivity extends AppCompatActivity {
                     forward.setClickable(false);
                     Toast.makeText(WebViewActivity.this, getString(R.string.no_next_movie), Toast.LENGTH_SHORT).show();
                 } else {
-                    url = MovieScreen.adapter.getItem(++currentPosition).getDetail_url();
-                    webView.loadUrl(url);
+                    if (MovieScreen.adapter.getItemCount() > ++currentPosition) {
+                        url = MovieScreen.adapter.getItem(currentPosition).getDetail_url();
+                        webView.loadUrl(url);
+                    } else {
+                        Toast.makeText(WebViewActivity.this, getString(R.string.no_next_movie), Toast.LENGTH_SHORT).show();
+                    }
+
                 }
                 position = String.valueOf(currentPosition);
             }
