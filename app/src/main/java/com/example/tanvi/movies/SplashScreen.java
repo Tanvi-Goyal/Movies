@@ -1,9 +1,9 @@
 package com.example.tanvi.movies;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -12,6 +12,7 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
+        this.deleteDatabase(SQLiteDatabaseHelper.DATABASE_NAME);
         //delay in ms
         int DELAY = 2000;
 

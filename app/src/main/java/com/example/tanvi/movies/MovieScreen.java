@@ -1,21 +1,27 @@
 package com.example.tanvi.movies;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 //import com.example.tanvi.movies.utils.NetworkUtils;
 
 public class MovieScreen extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener{
 
     RecyclerView recyclerView_one, recyclerView_two;
+    android.support.v7.widget.SearchView searchView;
     MyRecyclerViewAdapter adapter;
     LinearLayoutManager layoutManager;
 
@@ -24,16 +30,20 @@ public class MovieScreen extends AppCompatActivity implements MyRecyclerViewAdap
 
     private MoviesRepository moviesRepository;
 
+    SQLiteDatabaseHelper dbHelper = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_screen);
+
         moviesRepository = MoviesRepository.getInstance();
+        dbHelper = new SQLiteDatabaseHelper(this);
 
-
-
+        movies = new ArrayList<>();
         recyclerView_one = findViewById(R.id.recyler_one);
+        searchView = findViewById(R.id.search_view);
 
 //        new FetchMovies().execute();
 //
@@ -47,21 +57,41 @@ public class MovieScreen extends AppCompatActivity implements MyRecyclerViewAdap
         layoutManager = new GridLayoutManager(this, 2);
 
         // set up the RecyclerView
+        recyclerView_one.setLayoutManager(layoutManager);
+        adapter = new MyRecyclerViewAdapter(MovieScreen.this, movies);
+        adapter.setClickListener(MovieScreen.this);
+        recyclerView_one.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+        searchView.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                adapter.getFilter().filter(s);
+
+                return false;
+            }
+        });
+
 
         moviesRepository.getMovies(new OnGetMoviesCallback() {
             @Override
-            public void onSuccess(List<Movie> movies) {
-//                adapter.notify();
-                recyclerView_one.setLayoutManager(layoutManager);
-                adapter = new MyRecyclerViewAdapter(MovieScreen.this, movies);
-                adapter.setClickListener(MovieScreen.this);
-                recyclerView_one.setAdapter(adapter);
+            public void onSuccess(Movie movie) {
+
+                // add movie to db
+                Log.w("TAG", "Adding " + movie.getTitle());
+                dbHelper.addMovie(movie);
+                // shown notification
+                Log.w("TAG", "Added " + movie.getTitle());
+                sendNotification(movie);
+                // update recylerview
+                movies.add(dbHelper.getMovie(movie.getId()));
+                Log.w("TAG", "Fetched " + movie.getTitle());
                 adapter.notifyDataSetChanged();
-
-
-//                PagerSnapHelper snapHelper = new PagerSnapHelper();
-//                snapHelper.attachToRecyclerView(recyclerView_one);
-
             }
 
             @Override
@@ -73,32 +103,27 @@ public class MovieScreen extends AppCompatActivity implements MyRecyclerViewAdap
 
     }
 
+    private void sendNotification(Movie movie) {
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        builder.setSmallIcon(android.R.drawable.ic_dialog_alert);
+        Intent intent = new Intent(this, MovieScreen.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        builder.setContentIntent(pendingIntent);
+        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
+        builder.setContentTitle("Notifications Title");
+        builder.setContentText("Your notification content here.");
+        builder.setSubText("Tap to view the website.");
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        // Will display the notification in the notification bar
+        notificationManager.notify(1, builder.build());
+    }
+
     @Override
     public void onItemClick(View view, int position) {
 
         Toast.makeText(this, "You clicked " + adapter.getItem(position).getImdb_id(), Toast.LENGTH_SHORT).show();
     }
-
-//    public class FetchMovies extends AsyncTask<Void,Void,Void> {
-//
-//
-//        @Override
-//        protected Void doInBackground(Void... voids) {
-//            popularMoviesURL = "https://api.themoviedb.org/3/movie/550?api_key=f237940c743ded3e0dfd0193a5b6fb5b";
-//            movies = new ArrayList<>();
-//
-//            try {
-//                if(NetworkUtils.networkStatus(MovieScreen.this)){
-//                    movies = NetworkUtils.fetchData(popularMoviesURL); //Get popular movies
-////                    mTopTopRatedList = NetworkUtils.fetchData(topRatedMoviesURL); //Get top rated movies
-//                }else{
-//                    Toast.makeText(MovieScreen.this,"No Internet Connection",Toast.LENGTH_LONG).show();
-//                }
-//            } catch (IOException e){
-//                e.printStackTrace();
-//            }
-//
-//            return null;
-//        }
-//    }
 }

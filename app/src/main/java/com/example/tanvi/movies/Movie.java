@@ -36,6 +36,8 @@ public class Movie implements Serializable {
     @Expose
     private List<Integer> genreIds;
 
+    private String detail_url;
+
     public Movie() {
     }
 
@@ -49,14 +51,24 @@ public class Movie implements Serializable {
         this.genreIds = genreIds;
     }
 
-//    public Movie(int id, String title, String posterPath, String releaseDate, float rating, List<Integer> genreIds) {
-//        this.id = id;
-//        this.title = title;
-//        this.posterPath = posterPath;
-//        this.releaseDate = releaseDate;
-//        this.rating = rating;
-//        this.genreIds = genreIds;
-//    }
+    public Movie(int id, String imdb_id, String title, String posterPath, String releaseDate, float rating, List<Integer> genreIds, String detail_url) {
+        this.id = id;
+        this.imdb_id = imdb_id;
+        this.title = title;
+        this.posterPath = posterPath;
+        this.releaseDate = releaseDate;
+        this.rating = rating;
+        this.genreIds = genreIds;
+        this.detail_url = detail_url;
+    }
+
+    public String getDetail_url() {
+        return detail_url;
+    }
+
+    public void setDetail_url(String detail_url) {
+        this.detail_url = detail_url;
+    }
 
     public int getId() {
         return id;

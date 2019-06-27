@@ -1,9 +1,8 @@
 package com.example.tanvi.movies;
 
+import android.os.Handler;
 import android.support.annotation.NonNull;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.util.Log;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,6 +25,7 @@ public class MoviesRepository {
     }
 
     public static MoviesRepository getInstance() {
+
         if (repository == null) {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
@@ -39,19 +39,28 @@ public class MoviesRepository {
     }
 
     public void getMovies(final OnGetMoviesCallback callback) {
+
         api.getPopularMovies(API_KEY, LANGUAGE, 1)
                 .enqueue(new Callback<MovieResponse>() {
                     @Override
                     public void onResponse(@NonNull Call<MovieResponse> call, @NonNull Response<MovieResponse> response) {
                         if (response.isSuccessful()) {
-                            MovieResponse moviesResponse = response.body();
+                            final MovieResponse moviesResponse = response.body();
                             if (moviesResponse != null && moviesResponse.getMoviesId() != null) {
 
-                                //call getDetails and fetch imdb_id for each movie
-                                List<Movie> movies = new ArrayList<>();
+                                for (int i = 0; i < moviesResponse.getMoviesId().size(); i++) {
+                                    final int finalI = i;
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            getMovieDetails(moviesResponse.getMoviesId().get(finalI), callback);
 
-                                movies = getMovieDetails(moviesResponse.getMoviesId(), movies, callback);
-                                callback.onSuccess(movies);
+                                        }
+                                    }, 10000);
+
+                                }
+
+
                             } else {
                                 callback.onError();
                             }
@@ -67,20 +76,24 @@ public class MoviesRepository {
                 });
     }
 
-    private List<Movie> getMovieDetails(List<MovieId> moviesId, final List<Movie> movies, final OnGetMoviesCallback callback) {
+    private void getMovieDetails(MovieId moviesId, final OnGetMoviesCallback callback) {
 
-        for (int i = 0; i < moviesId.size(); i++) {
-            api.getDetails(moviesId.get(i).getId(), API_KEY)
+        api.getDetails(moviesId.getId(), API_KEY)
                     .enqueue(new Callback<Movie>() {
                         @Override
                         public void onResponse(Call<Movie> call, Response<Movie> response) {
                             if (response.isSuccessful()) {
                                 Movie movie = response.body();
                                 if (movie != null) {
-                                    movies.add(movie);
+                                    Log.w("TAG", "Retrievd " + movie.getTitle());
+                                    callback.onSuccess(movie);
+//                                    try {
+//                                        Thread.sleep(10000);
+//                                    } catch (InterruptedException e) {
+//                                        e.printStackTrace();
+//                                    }
                                 }
                             }
-                            callback.onSuccess(movies);
 
                         }
 
@@ -89,9 +102,6 @@ public class MoviesRepository {
                             callback.onError();
                         }
                     });
-        }
-
-        return movies;
 
     }
 

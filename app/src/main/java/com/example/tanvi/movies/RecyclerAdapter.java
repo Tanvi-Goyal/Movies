@@ -5,18 +5,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.makeramen.roundedimageview.RoundedImageView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
+class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> implements Filterable {
 
     private String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/w500";
     private List<Movie> mData;
+    private List<Movie> filteredData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
@@ -24,6 +28,7 @@ class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.V
     MyRecyclerViewAdapter(Context context, List<Movie> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
+        this.filteredData = data;
     }
 
     // inflates the row layout from xml when needed
@@ -36,7 +41,7 @@ class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.V
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.bind(mData.get(position));
+        holder.bind(filteredData.get(position));
 
     }
 
@@ -44,8 +49,43 @@ class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.V
     @Override
     public int getItemCount() {
         if (mData != null)
-            return mData.size();
+            return filteredData.size();
         else return 0;
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String charString = constraint.toString();
+                if (charString.isEmpty()) {
+                    filteredData = mData;
+                } else {
+                    List<Movie> filteredList = new ArrayList<>();
+                    for (Movie row : mData) {
+
+                        // name match condition. this might differ depending on your requirement
+                        // here we are looking for name or phone number match
+                        if (row.getTitle().toLowerCase().contains(charString.toLowerCase()) || row.getReleaseDate().contains(constraint)) {
+                            filteredList.add(row);
+                        }
+                    }
+
+                    filteredData = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = filteredData;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                filteredData = (ArrayList<Movie>) results.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
 
