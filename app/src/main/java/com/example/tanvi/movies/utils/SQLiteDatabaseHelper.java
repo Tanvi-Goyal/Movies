@@ -10,20 +10,20 @@ import com.example.tanvi.movies.model.Movie;
 
 public class SQLiteDatabaseHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "MovieDetails";
-    public static final String TABLE_NAME = "movies";
-    public static final String KEY_ROW_ID = "id";
-    public static final String KEY_MOVIE_ID = "movie_id";
-    public static final String KEY_MOVIE_IMDB_ID = "movie_imdb_id";
-    public static final String KEY_MOVIE_TITLE = "movie_title";
-    public static final String KEY_YEAR = "year";
-    public static final String KEY_RATING = "rating";
-    public static final String KEY_POSTER_URL = "poster_url";
-    public static final String KEY_DETAIL_URL = "detail_url";
-    public static final String SQL_DELETE_MOVIES =
-            "DROP TABLE IF EXISTS " + TABLE_NAME;
     private static final String IMDB_BASE_URL = "https://www.imdb.com/title/";
+
+    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "MovieDetails";
+    private static final String TABLE_NAME = "movies";
+    private static final String KEY_MOVIE_ID = "movie_id";
+    private static final String KEY_MOVIE_IMDB_ID = "movie_imdb_id";
+    private static final String KEY_MOVIE_TITLE = "movie_title";
+    private static final String KEY_YEAR = "year";
+    private static final String KEY_RATING = "rating";
+    private static final String KEY_POSTER_URL = "poster_url";
+    private static final String KEY_DETAIL_URL = "detail_url";
+    private static final String SQL_DELETE_MOVIES =
+            "DROP TABLE IF EXISTS " + TABLE_NAME;
     private static final String SQL_CREATE_MOVIES =
             "CREATE TABLE movies (" + KEY_MOVIE_ID + "  INTEGER PRIMARY KEY, "
                     + KEY_MOVIE_IMDB_ID + "  TEXT, " + KEY_MOVIE_TITLE + " TEXT, "

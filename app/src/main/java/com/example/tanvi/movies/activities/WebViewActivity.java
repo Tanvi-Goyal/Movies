@@ -3,7 +3,6 @@ package com.example.tanvi.movies.activities;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -39,8 +38,6 @@ public class WebViewActivity extends AppCompatActivity {
 
         webView.loadUrl(url);
 
-
-        Toast.makeText(this, "Clecked " + position + " with url " + url, Toast.LENGTH_SHORT).show();
         backward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,12 +45,11 @@ public class WebViewActivity extends AppCompatActivity {
 
                 if (Integer.parseInt(position) < 0) {
                     backward.setClickable(false);
-                    Toast.makeText(WebViewActivity.this, "There is no previous movie.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WebViewActivity.this, getString(R.string.no_previous_movie), Toast.LENGTH_SHORT).show();
                 } else {
                     url = MovieScreen.adapter.getItem(--currentPosition).getDetail_url();
                     webView.loadUrl(url);
                 }
-
                 position = String.valueOf(currentPosition);
 
             }
@@ -65,26 +61,14 @@ public class WebViewActivity extends AppCompatActivity {
                 int currentPosition = Integer.parseInt(position);
                 if (Integer.parseInt(position) >= 19) {
                     forward.setClickable(false);
-                    Toast.makeText(WebViewActivity.this, "There is no next movie.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WebViewActivity.this, getString(R.string.no_next_movie), Toast.LENGTH_SHORT).show();
                 } else {
-
                     url = MovieScreen.adapter.getItem(++currentPosition).getDetail_url();
                     webView.loadUrl(url);
                 }
-
                 position = String.valueOf(currentPosition);
             }
         });
     }
 
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && this.webView.canGoBack()) {
-            this.webView.goBack();
-            return true;
-        }
-
-        return super.onKeyDown(keyCode, event);
-    }
 }

@@ -4,7 +4,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class Movie implements Serializable {
 
@@ -32,33 +31,27 @@ public class Movie implements Serializable {
     @Expose
     private float rating;
 
-    @SerializedName("genre_ids")
-    @Expose
-    private List<Integer> genreIds;
-
     private String detail_url;
 
     public Movie() {
     }
 
-    public Movie(int id, String imdb_id, String title, String posterPath, String releaseDate, float rating, List<Integer> genreIds) {
+    public Movie(int id, String imdb_id, String title, String posterPath, String releaseDate, float rating) {
         this.id = id;
         this.imdb_id = imdb_id;
         this.title = title;
         this.posterPath = posterPath;
         this.releaseDate = releaseDate;
         this.rating = rating;
-        this.genreIds = genreIds;
     }
 
-    public Movie(int id, String imdb_id, String title, String posterPath, String releaseDate, float rating, List<Integer> genreIds, String detail_url) {
+    public Movie(int id, String imdb_id, String title, String posterPath, String releaseDate, float rating, String detail_url) {
         this.id = id;
         this.imdb_id = imdb_id;
         this.title = title;
         this.posterPath = posterPath;
         this.releaseDate = releaseDate;
         this.rating = rating;
-        this.genreIds = genreIds;
         this.detail_url = detail_url;
     }
 
@@ -118,11 +111,4 @@ public class Movie implements Serializable {
         this.rating = rating;
     }
 
-    public List<Integer> getGenreIds() {
-        return genreIds;
-    }
-
-    public void setGenreIds(List<Integer> genreIds) {
-        this.genreIds = genreIds;
-    }
 }

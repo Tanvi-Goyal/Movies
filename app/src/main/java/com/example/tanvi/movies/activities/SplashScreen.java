@@ -16,7 +16,6 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         this.deleteDatabase(SQLiteDatabaseHelper.DATABASE_NAME);
-        //delay in ms
         int DELAY = 2000;
 
         Handler handler = new Handler();
