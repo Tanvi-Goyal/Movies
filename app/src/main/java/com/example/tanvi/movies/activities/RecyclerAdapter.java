@@ -109,7 +109,9 @@ class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.V
         private void bind(Movie movie) {
             movie_year.setText(movie.getReleaseDate().split("-")[0]);
             movie_name.setText(movie.getTitle());
-            movie_rating.setRating(movie.getRating());
+
+            movie_rating.setRating(movie.getRating() / 2);
+
 
             Glide.with(itemView)
                     .load(IMAGE_BASE_URL + movie.getPosterPath())

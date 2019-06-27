@@ -79,7 +79,7 @@ public class MoviesRepository {
                                 };
 
                                 timer = new Timer();
-                                timer.scheduleAtFixedRate(task, 0, 5000);
+                                timer.scheduleAtFixedRate(task, 0, 30000);
 
                             } else {
                                 callback.onError();

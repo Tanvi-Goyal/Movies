@@ -7,11 +7,12 @@
     android:background="@drawable/bg"
     tools:context=".activities.MovieScreen">
 
+
     <TextView
         android:id="@+id/movie_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MOVIES"
+        android:text="@string/movies"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -41,7 +42,8 @@
         android:layout_below="@id/line_view"
         android:layout_marginRight="40dp"
         android:layout_marginLeft="40dp"
-        app:queryHint="Search movies by name">
+        android:clickable="true"
+        app:queryHint="@string/search_hint">
 
     </android.support.v7.widget.SearchView>
 
@@ -57,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/audiowide"
-            android:text="Popular Movies"
+            android:text="@string/popular_movies_text"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
             android:textStyle="bold"
             app:fontFamily="@font/raleway_medium" />

@@ -1,6 +1,8 @@
 package com.example.tanvi.movies.activities;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -17,12 +19,14 @@ public class WebViewActivity extends AppCompatActivity {
     String url;
     private WebView webView;
     private FloatingActionButton backward, forward;
+    ProgressDialog pd = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view);
 
+        showProcessDialog();
         position = getIntent().getStringExtra("position");
         url = getIntent().getStringExtra("detail_url");
         this.webView = findViewById(R.id.web_view);
@@ -37,6 +41,17 @@ public class WebViewActivity extends AppCompatActivity {
         webView.setWebViewClient(webViewClient);
 
         webView.loadUrl(url);
+
+        int DELAY = 5000;
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                hideProcessDialog();
+
+            }
+        }, DELAY);
 
         backward.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +84,20 @@ public class WebViewActivity extends AppCompatActivity {
                 position = String.valueOf(currentPosition);
             }
         });
+    }
+
+    public void showProcessDialog() {
+        pd = new ProgressDialog(this);
+        pd.setTitle("Please Wait...");
+        pd.setMessage("Loading Info");
+        pd.setCancelable(false);
+        pd.show();
+    }
+
+    public void hideProcessDialog() {
+        if (pd.isShowing()) {
+            pd.dismiss();
+        }
     }
 
 }

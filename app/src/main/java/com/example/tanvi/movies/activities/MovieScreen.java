@@ -2,6 +2,7 @@ package com.example.tanvi.movies.activities;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,7 +33,7 @@ public class MovieScreen extends AppCompatActivity implements MyRecyclerViewAdap
     private MoviesRepository moviesRepository;
     SQLiteDatabaseHelper dbHelper = null;
     private static String CHANNEL_ID = "1234";
-
+    ProgressDialog pd = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,8 @@ public class MovieScreen extends AppCompatActivity implements MyRecyclerViewAdap
         movies = new ArrayList<>();
         recyclerView_one = findViewById(R.id.recyler_one);
         searchView = findViewById(R.id.search_view);
+
+        showProcessDialog();
 
         // set up the RecyclerView
         layoutManager = new GridLayoutManager(this, 2);
@@ -74,6 +77,7 @@ public class MovieScreen extends AppCompatActivity implements MyRecyclerViewAdap
             @Override
             public void onSuccess(Movie movie) {
 
+                hideProcessDialog();
                 dbHelper.addMovie(movie);
                 sendNotification(movie);
                 movies.add(dbHelper.getMovie(movie.getId()));
@@ -125,7 +129,20 @@ public class MovieScreen extends AppCompatActivity implements MyRecyclerViewAdap
         intent.putExtra("position", String.valueOf(position));
         intent.putExtra("detail_url", adapter.getItem(position).getDetail_url());
         startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+    }
+
+    public void showProcessDialog() {
+        pd = new ProgressDialog(this);
+        pd.setTitle("Please Wait...");
+        pd.setMessage("Loading Info");
+        pd.setCancelable(false);
+        pd.show();
+    }
+
+    public void hideProcessDialog() {
+        if (pd.isShowing()) {
+            pd.dismiss();
+        }
     }
 
 }

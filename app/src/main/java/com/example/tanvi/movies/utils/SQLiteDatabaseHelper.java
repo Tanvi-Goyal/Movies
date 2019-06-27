@@ -13,7 +13,7 @@ public class SQLiteDatabaseHelper extends SQLiteOpenHelper {
     private static final String IMDB_BASE_URL = "https://www.imdb.com/title/";
 
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "MovieDetails";
+    public static final String DATABASE_NAME = "MovieDetails";
     private static final String TABLE_NAME = "movies";
     private static final String KEY_MOVIE_ID = "movie_id";
     private static final String KEY_MOVIE_IMDB_ID = "movie_imdb_id";
