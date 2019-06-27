@@ -103,8 +103,7 @@ public class MovieScreen extends AppCompatActivity implements MyRecyclerViewAdap
                 .setAutoCancel(true);
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        int id = 1;
-        notificationManager.notify(id++, builder.build());
+        notificationManager.notify(1, builder.build());
 
     }
 
