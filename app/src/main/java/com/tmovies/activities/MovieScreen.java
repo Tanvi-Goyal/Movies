@@ -1,4 +1,4 @@
-package com.example.tanvi.movies.activities;
+package com.tmovies.activities;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -15,11 +15,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.tanvi.movies.R;
-import com.example.tanvi.movies.model.Movie;
-import com.example.tanvi.movies.utils.MoviesRepository;
-import com.example.tanvi.movies.utils.OnGetMoviesCallback;
-import com.example.tanvi.movies.utils.SQLiteDatabaseHelper;
+import com.tmovies.R;
+import com.tmovies.model.Movie;
+import com.tmovies.utils.MoviesRepository;
+import com.tmovies.utils.OnGetMoviesCallback;
+import com.tmovies.utils.SQLiteDatabaseHelper;
 
 import java.util.ArrayList;
 

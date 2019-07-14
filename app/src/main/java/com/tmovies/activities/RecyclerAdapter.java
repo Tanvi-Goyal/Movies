@@ -1,4 +1,4 @@
-package com.example.tanvi.movies.activities;
+package com.tmovies.activities;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -12,8 +12,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.tanvi.movies.R;
-import com.example.tanvi.movies.model.Movie;
+import com.tmovies.R;
+import com.tmovies.model.Movie;
 
 import java.util.ArrayList;
 import java.util.List;

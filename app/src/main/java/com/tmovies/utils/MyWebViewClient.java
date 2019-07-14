@@ -1,4 +1,4 @@
-package com.example.tanvi.movies.utils;
+package com.tmovies.utils;
 
 import android.webkit.WebView;
 import android.webkit.WebViewClient;

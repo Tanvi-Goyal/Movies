@@ -1,4 +1,4 @@
-package com.example.tanvi.movies;
+package com.tmovies;
 
 import org.junit.Test;
 

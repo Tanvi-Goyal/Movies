@@ -1,7 +1,7 @@
-package com.example.tanvi.movies.utils;
+package com.tmovies.utils;
 
-import com.example.tanvi.movies.model.Movie;
-import com.example.tanvi.movies.model.MovieResponse;
+import com.tmovies.model.Movie;
+import com.tmovies.model.MovieResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

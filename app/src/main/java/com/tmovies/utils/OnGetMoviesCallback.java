@@ -1,6 +1,6 @@
-package com.example.tanvi.movies.utils;
+package com.tmovies.utils;
 
-import com.example.tanvi.movies.model.Movie;
+import com.tmovies.model.Movie;
 
 public interface OnGetMoviesCallback {
 

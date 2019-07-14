@@ -1,4 +1,4 @@
-package com.example.tanvi.movies.activities;
+package com.tmovies.activities;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -10,8 +10,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Toast;
 
-import com.example.tanvi.movies.R;
-import com.example.tanvi.movies.utils.MyWebViewClient;
+import com.tmovies.R;
+import com.tmovies.utils.MyWebViewClient;
 
 public class WebViewActivity extends AppCompatActivity {
 

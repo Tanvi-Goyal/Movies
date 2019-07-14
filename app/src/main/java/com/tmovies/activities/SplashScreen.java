@@ -1,12 +1,12 @@
-package com.example.tanvi.movies.activities;
+package com.tmovies.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.tanvi.movies.R;
-import com.example.tanvi.movies.utils.SQLiteDatabaseHelper;
+import com.tmovies.R;
+import com.tmovies.utils.SQLiteDatabaseHelper;
 
 public class SplashScreen extends AppCompatActivity {
 

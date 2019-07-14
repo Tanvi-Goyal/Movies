@@ -1,4 +1,4 @@
-package com.example.tanvi.movies;
+package com.tmovies;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

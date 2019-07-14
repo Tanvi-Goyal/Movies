@@ -1,4 +1,4 @@
-package com.example.tanvi.movies.model;
+package com.tmovies.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
