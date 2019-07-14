@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "323829227675",
+    "firebase_url": "https://tmovies-a2ddc.firebaseio.com",
+    "project_id": "tmovies-a2ddc",
+    "storage_bucket": "tmovies-a2ddc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:323829227675:android:9a51e013042e935d",
+        "android_client_info": {
+          "package_name": "com.tmovies"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "323829227675-k2b8ndfuhl3a4hlvd70k4fs0ap7albjd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tmovies",
+            "certificate_hash": "7f7925ea01b956666293b0ce681e891400f8396e"
+          }
+        },
+        {
+          "client_id": "323829227675-rv147k79km2btthku4to9uosjc6va7ir.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxB4EAeN7ktsZZ481jef_ZeS4IyaiTABI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "323829227675-rv147k79km2btthku4to9uosjc6va7ir.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
