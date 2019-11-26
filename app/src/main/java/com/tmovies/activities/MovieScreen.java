@@ -85,7 +85,7 @@ public class MovieScreen extends AppCompatActivity implements MyRecyclerViewAdap
 
 
     }
-    
+
     @Override
     public void onItemClick(View view, int position) {
 
