@@ -1,13 +1,8 @@
 package com.tmovies.activities;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -42,7 +37,7 @@ public class MovieScreen extends AppCompatActivity implements MyRecyclerViewAdap
 
         moviesRepository = MoviesRepository.getInstance();
         dbHelper = new SQLiteDatabaseHelper(this);
-        createNotificationChannel();
+//        createNotificationChannel();
 
         movies = new ArrayList<>();
         recyclerView_one = findViewById(R.id.recyler_one);
@@ -77,7 +72,7 @@ public class MovieScreen extends AppCompatActivity implements MyRecyclerViewAdap
 
                 hideProcessDialog();
                 dbHelper.addMovie(movie);
-                sendNotification(movie);
+//                sendNotification(movie);
                 movies.add(dbHelper.getMovie(movie.getId()));
                 adapter.notifyDataSetChanged();
             }
@@ -90,35 +85,7 @@ public class MovieScreen extends AppCompatActivity implements MyRecyclerViewAdap
 
 
     }
-
-    private void sendNotification(Movie movie) {
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.movie_icon)
-                .setContentTitle(movie.getTitle())
-                .setContentText(getString(R.string.notification_description))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setAutoCancel(true);
-
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        notificationManager.notify(1, builder.build());
-
-    }
-
-    private void createNotificationChannel() {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = getString(R.string.channel_name);
-            String description = getString(R.string.channel_description);
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-            channel.setDescription(description);
-
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
-
+    
     @Override
     public void onItemClick(View view, int position) {
 
