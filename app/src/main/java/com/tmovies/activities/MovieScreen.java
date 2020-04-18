@@ -66,7 +66,7 @@ public class MovieScreen extends AppCompatActivity implements MyRecyclerViewAdap
             }
         });
 
-        moviesRepository.getMovies(new OnGetMoviesCallback() {
+        moviesRepository.getPopularMovies(new OnGetMoviesCallback() {
             @Override
             public void onSuccess(Movie movie) {
 
