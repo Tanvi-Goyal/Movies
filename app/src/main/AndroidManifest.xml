@@ -23,6 +23,7 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
+        <activity android:name="com.tmovies.activities.HomeScreen" />
         <activity android:name="com.tmovies.activities.MovieScreen" />
         <activity android:name="com.tmovies.activities.WebViewActivity"></activity>
     </application>

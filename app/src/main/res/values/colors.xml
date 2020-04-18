@@ -5,6 +5,11 @@
     <color name="colorAccent">#D81B60</color>
     <color name="black">#000000</color>
     <color name="red">#dc0202</color>
-
+    <color name="green">#3AB344</color>
+    <color name="orange">#FE9940</color>
+    <color name="pink">#FE5F9B</color>
+    <color name="redLight">#FF5E5E</color>
+    <color name="blue">#209AF7</color>
+    <color name="purple">#AC3FFF</color>
 
 </resources>
