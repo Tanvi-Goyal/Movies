@@ -46,9 +46,10 @@ interface TMDbApi {
 
     @GET("trending/{media_type}/{time_window}")
     Call<MovieResponse> getTrendingMovies(
-            @Query("api_key") String apiKey,
             @Path("media_type") String mediaType,
-            @Path("time_window") String timeWindow
+            @Path("time_window") String timeWindow,
+            @Query("api_key") String apiKey
+
     );
 
     @GET("tv/latest")

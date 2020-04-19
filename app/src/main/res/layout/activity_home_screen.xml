@@ -13,21 +13,19 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="5dp"
         android:fontFamily="@font/audiowide"
         android:text="@string/movies"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="20dp" />
 
     <View
         android:id="@+id/line_view"
         android:layout_width="100dp"
         android:layout_height="6dp"
-        android:layout_below="@id/movie_title"
-        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginBottom="20dp"
         android:background="@color/red"
         app:layout_constraintStart_toStartOf="parent"

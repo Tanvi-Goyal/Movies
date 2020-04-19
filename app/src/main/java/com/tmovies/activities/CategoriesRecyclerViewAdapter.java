@@ -1,43 +1,45 @@
 package com.tmovies.activities;
 
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
-import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
 import com.tmovies.R;
-import com.tmovies.model.Movie;
-
+import com.tmovies.utils.RecyclerViewClickListener;
 import java.util.ArrayList;
-import java.util.List;
 
 class CategoriesRecyclerViewAdapter extends RecyclerView.Adapter<CategoriesRecyclerViewAdapter.ViewHolder> {
 
     private ArrayList<String> mData;
     private LayoutInflater mInflater;
-    private ItemClickListener mClickListener;
+    private RecyclerViewClickListener mListener;
 
-    CategoriesRecyclerViewAdapter(Context context, ArrayList<String> data) {
+    CategoriesRecyclerViewAdapter(Context context, ArrayList<String> data, RecyclerViewClickListener listener) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
+        this.mListener = listener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.item_categories, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mListener);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.bind(mData.get(position), position);
+        if(holder instanceof ViewHolder) {
+            ViewHolder viewHolder = (ViewHolder) holder;
+            viewHolder.textCategory.setText(mData.get(position));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                viewHolder.textCategory.setBackground(holder.itemView.getContext().getDrawable(getBackgroundFromPosition(position)));
+            }
+        }
     }
 
     @Override
@@ -49,39 +51,31 @@ class CategoriesRecyclerViewAdapter extends RecyclerView.Adapter<CategoriesRecyc
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView textCategory;
-
-        ViewHolder(View itemView) {
+        private RecyclerViewClickListener mListener;
+        ViewHolder(View itemView, RecyclerViewClickListener listener) {
             super(itemView);
+            mListener = listener;
             textCategory = itemView.findViewById(R.id.textCategory);
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
-        }
-
-        private void bind(String category, int position) {
-            textCategory.setText(category);
-//            textCategory.setBackground(itemView.getContext().getColor(getBackgroundFromPosition(position)));
+            if (mListener != null) mListener.onClick(view, getAdapterPosition());
         }
     }
 
     private int getBackgroundFromPosition(int position) {
-        if(position == 0) return R.color.green;
-        else if(position == 1) return R.color.redLight;
-        else if(position == 2) return R.color.purple;
-        else if(position == 3) return R.color.blue;
-        else if(position == 4) return R.color.pink;
-        else if(position == 5) return R.color.orange;
+        if (position == 0) return R.drawable.bg_green;
+        else if (position == 1) return R.drawable.bg_red_light;
+        else if (position == 2) return R.drawable.bg_purple;
+        else if (position == 3) return R.drawable.bg_blue;
+        else if (position == 4) return R.drawable.bg_pink;
+        else if (position == 5) return R.drawable.bg_orange;
         else return 0;
     }
 
-    void setClickListener(ItemClickListener itemClickListener) {
-        this.mClickListener = itemClickListener;
-    }
-
-    public interface ItemClickListener {
-        void onItemClick(View view, int position);
+    String getItem(int id) {
+        return mData.get(id);
     }
 }

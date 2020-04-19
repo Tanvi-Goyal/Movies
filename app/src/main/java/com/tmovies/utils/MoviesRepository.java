@@ -7,16 +7,12 @@ import com.tmovies.model.Movie;
 import com.tmovies.model.MovieId;
 import com.tmovies.model.MovieResponse;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static android.support.constraint.Constraints.TAG;
 import static com.tmovies.constants.ApiConstants.API_KEY;
 import static com.tmovies.constants.ApiConstants.BASE_URL;
 import static com.tmovies.constants.ApiConstants.LANGUAGE;
@@ -24,7 +20,6 @@ import static com.tmovies.constants.ApiConstants.LANGUAGE;
 public class MoviesRepository {
 
     private static MoviesRepository repository;
-    private Timer timer;
     private TMDbApi api;
 
     private MoviesRepository(TMDbApi api) {
@@ -55,7 +50,7 @@ public class MoviesRepository {
                             final MovieResponse moviesResponse = response.body();
                             if (moviesResponse != null && moviesResponse.getMoviesId() != null) {
 
-                                for(int index = 0; index < moviesResponse.getMoviesId().size();index++) {
+                                for (int index = 0; index < moviesResponse.getMoviesId().size(); index++) {
                                     getMovieDetails(moviesResponse.getMoviesId().get(index), callback);
                                 }
 
@@ -84,7 +79,7 @@ public class MoviesRepository {
                             final MovieResponse moviesResponse = response.body();
                             if (moviesResponse != null && moviesResponse.getMoviesId() != null) {
 
-                                for(int index = 0; index < moviesResponse.getMoviesId().size();index++) {
+                                for (int index = 0; index < moviesResponse.getMoviesId().size(); index++) {
                                     getMovieDetails(moviesResponse.getMoviesId().get(index), callback);
                                 }
 
@@ -113,7 +108,7 @@ public class MoviesRepository {
                             final MovieResponse moviesResponse = response.body();
                             if (moviesResponse != null && moviesResponse.getMoviesId() != null) {
 
-                                for(int index = 0; index < moviesResponse.getMoviesId().size();index++) {
+                                for (int index = 0; index < moviesResponse.getMoviesId().size(); index++) {
                                     getMovieDetails(moviesResponse.getMoviesId().get(index), callback);
                                 }
 
@@ -142,7 +137,7 @@ public class MoviesRepository {
                             final MovieResponse moviesResponse = response.body();
                             if (moviesResponse != null && moviesResponse.getMoviesId() != null) {
 
-                                for(int index = 0; index < moviesResponse.getMoviesId().size();index++) {
+                                for (int index = 0; index < moviesResponse.getMoviesId().size(); index++) {
                                     getMovieDetails(moviesResponse.getMoviesId().get(index), callback);
                                 }
 
@@ -171,7 +166,7 @@ public class MoviesRepository {
                             final MovieResponse moviesResponse = response.body();
                             if (moviesResponse != null && moviesResponse.getMoviesId() != null) {
 
-                                for(int index = 0; index < moviesResponse.getMoviesId().size();index++) {
+                                for (int index = 0; index < moviesResponse.getMoviesId().size(); index++) {
                                     getMovieDetails(moviesResponse.getMoviesId().get(index), callback);
                                 }
 
@@ -192,7 +187,7 @@ public class MoviesRepository {
 
     public void getTrendingMovies(final OnGetMoviesCallback callback) {
 
-        api.getTrendingMovies(API_KEY, "all", "week")
+        api.getTrendingMovies("all", "week", API_KEY)
                 .enqueue(new Callback<MovieResponse>() {
                     @Override
                     public void onResponse(@NonNull Call<MovieResponse> call, @NonNull Response<MovieResponse> response) {
@@ -200,7 +195,7 @@ public class MoviesRepository {
                             final MovieResponse moviesResponse = response.body();
                             if (moviesResponse != null && moviesResponse.getMoviesId() != null) {
 
-                                for(int index = 0; index < moviesResponse.getMoviesId().size();index++) {
+                                for (int index = 0; index < moviesResponse.getMoviesId().size(); index++) {
                                     getMovieDetails(moviesResponse.getMoviesId().get(index), callback);
                                 }
 
@@ -229,7 +224,7 @@ public class MoviesRepository {
                             final MovieResponse moviesResponse = response.body();
                             if (moviesResponse != null && moviesResponse.getMoviesId() != null) {
 
-                                for(int index = 0; index < moviesResponse.getMoviesId().size();index++) {
+                                for (int index = 0; index < moviesResponse.getMoviesId().size(); index++) {
                                     getMovieDetails(moviesResponse.getMoviesId().get(index), callback);
                                 }
 
@@ -258,7 +253,7 @@ public class MoviesRepository {
                             final MovieResponse moviesResponse = response.body();
                             if (moviesResponse != null && moviesResponse.getMoviesId() != null) {
 
-                                for(int index = 0; index < moviesResponse.getMoviesId().size();index++) {
+                                for (int index = 0; index < moviesResponse.getMoviesId().size(); index++) {
                                     getMovieDetails(moviesResponse.getMoviesId().get(index), callback);
                                 }
 
@@ -287,7 +282,7 @@ public class MoviesRepository {
                             final MovieResponse moviesResponse = response.body();
                             if (moviesResponse != null && moviesResponse.getMoviesId() != null) {
 
-                                for(int index = 0; index < moviesResponse.getMoviesId().size();index++) {
+                                for (int index = 0; index < moviesResponse.getMoviesId().size(); index++) {
                                     getMovieDetails(moviesResponse.getMoviesId().get(index), callback);
                                 }
 
@@ -316,7 +311,7 @@ public class MoviesRepository {
                             final MovieResponse moviesResponse = response.body();
                             if (moviesResponse != null && moviesResponse.getMoviesId() != null) {
 
-                                for(int index = 0; index < moviesResponse.getMoviesId().size();index++) {
+                                for (int index = 0; index < moviesResponse.getMoviesId().size(); index++) {
                                     getMovieDetails(moviesResponse.getMoviesId().get(index), callback);
                                 }
 
@@ -345,7 +340,7 @@ public class MoviesRepository {
                             final MovieResponse moviesResponse = response.body();
                             if (moviesResponse != null && moviesResponse.getMoviesId() != null) {
 
-                                for(int index = 0; index < moviesResponse.getMoviesId().size();index++) {
+                                for (int index = 0; index < moviesResponse.getMoviesId().size(); index++) {
                                     getMovieDetails(moviesResponse.getMoviesId().get(index), callback);
                                 }
 

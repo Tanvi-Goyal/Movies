@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,71 +7,44 @@
     android:background="@drawable/bg"
     tools:context="com.tmovies.activities.MovieScreen">
 
-
     <TextView
-        android:id="@+id/movie_title"
+        android:id="@+id/movie_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/movies"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="5dp"
-        android:textStyle="bold"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/audiowide"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        />
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/line_view"
-        android:layout_width="100dp"
+        android:layout_width="0dp"
         android:layout_height="6dp"
-        android:layout_below="@id/movie_title"
+        android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="4dp"
         android:layout_marginBottom="20dp"
         android:background="@color/red"
-        >
+        app:layout_constraintEnd_toEndOf="@id/movie_category"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/movie_category" />
 
-    </View>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyler_one"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/line_view"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <android.support.v7.widget.SearchView
-        android:id="@+id/search_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_white_rounded"
-        android:layout_below="@id/line_view"
-        android:layout_marginRight="40dp"
-        android:layout_marginLeft="40dp"
-        android:clickable="true"
-        app:queryHint="@string/search_hint">
-
-    </android.support.v7.widget.SearchView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/search_view"
-        android:layout_margin="20dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/popular_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/audiowide"
-            android:text="@string/movies_text"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-            android:textStyle="bold"
-            app:fontFamily="@font/raleway_medium" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyler_one"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="8dp">
-
-        </android.support.v7.widget.RecyclerView>
-
-    </LinearLayout>
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

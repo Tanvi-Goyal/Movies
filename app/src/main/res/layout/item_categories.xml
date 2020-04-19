@@ -4,19 +4,15 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-
         <TextView
             android:id="@+id/textCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/audiowide"
-            android:paddingLeft="20dp"
-            android:paddingTop="10dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="10dp"
             android:layout_marginBottom="10dp"
             android:gravity="center"
             android:minWidth="150dp"
+            android:background="@drawable/bg_green"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
