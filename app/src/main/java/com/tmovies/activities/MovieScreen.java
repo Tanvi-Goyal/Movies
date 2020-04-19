@@ -57,6 +57,7 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_screen);
         setStatusBarColor();
+        list.clear();
 
         type = getIntent().getExtras().getString("type");
         category = getIntent().getExtras().getString("category");

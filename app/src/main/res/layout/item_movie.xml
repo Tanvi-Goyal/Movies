@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/movie_layout"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:background="?android:attr/selectableItemBackground">
@@ -23,11 +23,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:fontFamily="@font/audiowide"
+        android:fontFamily="@font/gilroy_regular"
         android:textColor="@color/white"
         android:textStyle="bold"
         app:fontFamily="@font/raleway_medium"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/movie_img"
         app:layout_constraintTop_toBottomOf="@id/movie_img"/>
 
 
@@ -35,10 +35,10 @@
         android:id="@+id/movie_year"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/raleway_medium"
+        android:fontFamily="@font/gilroy_regular"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
         android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/movie_img"
         app:layout_constraintTop_toBottomOf="@id/movie_title"/>
 
     <android.support.v7.widget.AppCompatRatingBar
@@ -49,7 +49,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:numStars="5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/movie_title"
         app:layout_constraintTop_toBottomOf="@id/movie_year"/>
 
 </android.support.constraint.ConstraintLayout>
