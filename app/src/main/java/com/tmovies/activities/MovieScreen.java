@@ -81,7 +81,7 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
     @Override
     protected void onStart() {
         super.onStart();
-        list.clear();
+//        list.clear();
     }
 
     private void setRecyclerScroll(RecyclerView recyclerView_one, final PaginatonListAdapter adapter) {

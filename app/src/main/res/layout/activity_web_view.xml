@@ -14,30 +14,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/btn_backward"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:backgroundTint="@color/redLight"
-        android:src="@drawable/ic_arrow_back_black_24dp"
-        app:elevation="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:rippleColor="@color/red" />
-
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/btn_forward"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:backgroundTint="@color/redLight"
-        android:src="@drawable/ic_arrow_forward_black_24dp"
-        app:elevation="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:rippleColor="@color/red"/>
-
 </android.support.constraint.ConstraintLayout>

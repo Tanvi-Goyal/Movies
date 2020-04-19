@@ -44,6 +44,7 @@
         android:clickable="true"
         android:focusable="true"
         android:elevation="20dp"
+        app:iconifiedByDefault="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/line_view"
         app:queryHint="@string/search_hint" />

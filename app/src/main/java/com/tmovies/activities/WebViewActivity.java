@@ -26,7 +26,6 @@ public class WebViewActivity extends AppCompatActivity {
     String position;
     String url;
     private WebView webView;
-    private FloatingActionButton backward, forward;
     ProgressDialog pd;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -38,67 +37,15 @@ public class WebViewActivity extends AppCompatActivity {
 
         position = getIntent().getStringExtra("position");
         url = getIntent().getStringExtra("detail_url");
-
         pd = new ProgressDialog(this);
 
         webView = findViewById(R.id.web_view);
-        backward = findViewById(R.id.btn_backward);
-        forward = findViewById(R.id.btn_forward);
-
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
         MyWebViewClient webViewClient = new MyWebViewClient();
         webView.setWebViewClient(webViewClient);
         webView.loadUrl(url);
-
-        setBackBtnListener();
-        setForwardBtnListener();
-    }
-
-    private void setForwardBtnListener() {
-        forward.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int currentPosition = Integer.parseInt(position);
-                if (Integer.parseInt(position) >= 19) {
-                    forward.setClickable(false);
-                    Toast.makeText(WebViewActivity.this, getString(R.string.no_next_movie), Toast.LENGTH_SHORT).show();
-                } else {
-                    if (MovieScreen.adapter.getItemCount() > ++currentPosition) {
-                        url = MovieScreen.adapter.getItem(currentPosition).getDetail_url();
-                        webView.loadUrl(url);
-                    } else {
-                        Toast.makeText(WebViewActivity.this, getString(R.string.no_next_movie), Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-                position = String.valueOf(currentPosition);
-            }
-        });
-    }
-
-    private void setBackBtnListener() {
-        backward.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int currentPosition = Integer.parseInt(position);
-
-                if (Integer.parseInt(position) <= 0) {
-                    backward.setClickable(false);
-                    Toast.makeText(WebViewActivity.this, getString(R.string.no_previous_movie), Toast.LENGTH_SHORT).show();
-                } else {
-                    if (MovieScreen.adapter.getItemCount() > --currentPosition) {
-                        url = MovieScreen.adapter.getItem(currentPosition).getDetail_url();
-                        webView.loadUrl(url);
-                    } else {
-                        Toast.makeText(WebViewActivity.this, getString(R.string.no_previous_movie), Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-                position = String.valueOf(currentPosition);
-            }
-        });
     }
 
     public void showProcessDialog() {
