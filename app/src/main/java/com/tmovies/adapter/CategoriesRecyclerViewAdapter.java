@@ -40,7 +40,7 @@ public class CategoriesRecyclerViewAdapter extends RecyclerView.Adapter<Categori
             ViewHolder viewHolder = (ViewHolder) holder;
             viewHolder.textCategory.setText(mData.get(position));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                viewHolder.textCategory.setBackground(holder.itemView.getContext().getDrawable(getBackgroundFromPosition(position)));
+                viewHolder.textCategory.setBackground(holder.itemView.getContext().getDrawable(getBackgroundFromPosition(position)));
                 viewHolder.textCategory.setCompoundDrawablesWithIntrinsicBounds(holder.itemView.getContext().getDrawable(getCategoryDrawable(mData.get(position))), null, null, null);
             }
         }

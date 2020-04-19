@@ -2,12 +2,17 @@ package com.tmovies.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,10 +51,12 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
     String type = "";
     String category = "";
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_screen);
+        setStatusBarColor();
 
         type = getIntent().getExtras().getString("type");
         category = getIntent().getExtras().getString("category");
@@ -127,7 +134,9 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
                                 TOTAL_PAGES = movieResponse.getTotalPages();
 
                                 if (total_results == 0) {
+                                    hideProcessDialog();
                                     searchResults.setText("No Results Found.");
+                                    recyclerView_one.setVisibility(View.GONE);
                                 } else {
                                     searchResults.setText(total_results + " Results Found.");
                                     for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
@@ -142,6 +151,8 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
                                             @Override
                                             public void onError() {
+                                                hideProcessDialog();
+                                                Toast.makeText(getApplicationContext(), R.string.no_internet_text, Toast.LENGTH_SHORT).show();
                                             }
                                         });
                                     }
@@ -151,7 +162,8 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
                             @Override
                             public void onError() {
-
+                                hideProcessDialog();
+                                Toast.makeText(getApplicationContext(), R.string.no_internet_text, Toast.LENGTH_SHORT).show();
                             }
 
                         }, currentPage);
@@ -165,7 +177,9 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
                                 TOTAL_PAGES = movieResponse.getTotalPages();
 
                                 if (total_results == 0) {
+                                    hideProcessDialog();
                                     searchResults.setText("No Results Found.");
+                                    recyclerView_one.setVisibility(View.GONE);
                                 } else {
                                     searchResults.setText(total_results + " Results Found.");
                                     for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
@@ -180,6 +194,8 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
                                             @Override
                                             public void onError() {
+                                                hideProcessDialog();
+                                                Toast.makeText(getApplicationContext(), R.string.no_internet_text, Toast.LENGTH_SHORT).show();
                                             }
                                         });
                                     }
@@ -189,7 +205,8 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
                             @Override
                             public void onError() {
-
+                                hideProcessDialog();
+                                Toast.makeText(getApplicationContext(), R.string.no_internet_text, Toast.LENGTH_SHORT).show();
                             }
 
                         }, currentPage);
@@ -204,7 +221,9 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
                                 TOTAL_PAGES = movieResponse.getTotalPages();
 
                                 if (total_results == 0) {
+                                    hideProcessDialog();
                                     searchResults.setText("No Results Found.");
+                                    recyclerView_one.setVisibility(View.GONE);
                                 } else {
                                     searchResults.setText(total_results + " Results Found.");
                                     for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
@@ -219,6 +238,8 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
                                             @Override
                                             public void onError() {
+                                                hideProcessDialog();
+                                                Toast.makeText(getApplicationContext(), R.string.no_internet_text, Toast.LENGTH_SHORT).show();
                                             }
                                         });
                                     }
@@ -228,7 +249,8 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
                             @Override
                             public void onError() {
-
+                                hideProcessDialog();
+                                Toast.makeText(getApplicationContext(), R.string.no_internet_text, Toast.LENGTH_SHORT).show();
                             }
 
                         }, currentPage);
@@ -243,7 +265,9 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
                                 TOTAL_PAGES = movieResponse.getTotalPages();
 
                                 if (total_results == 0) {
+                                    hideProcessDialog();
                                     searchResults.setText("No Results Found.");
+                                    recyclerView_one.setVisibility(View.GONE);
                                 } else {
                                     searchResults.setText(total_results + " Results Found.");
                                     for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
@@ -258,6 +282,8 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
                                             @Override
                                             public void onError() {
+                                                hideProcessDialog();
+                                                Toast.makeText(getApplicationContext(), R.string.no_internet_text, Toast.LENGTH_SHORT).show();
                                             }
                                         });
                                     }
@@ -267,7 +293,8 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
                             @Override
                             public void onError() {
-
+                                hideProcessDialog();
+                                Toast.makeText(getApplicationContext(), R.string.no_internet_text, Toast.LENGTH_SHORT).show();
                             }
 
                         }, currentPage);
@@ -282,7 +309,9 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
                                 TOTAL_PAGES = movieResponse.getTotalPages();
 
                                 if (total_results == 0) {
+                                    hideProcessDialog();
                                     searchResults.setText("No Results Found.");
+                                    recyclerView_one.setVisibility(View.GONE);
                                 } else {
                                     searchResults.setText(total_results + " Results Found.");
                                     for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
@@ -297,6 +326,8 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
                                             @Override
                                             public void onError() {
+                                                hideProcessDialog();
+                                                Toast.makeText(getApplicationContext(), R.string.no_internet_text, Toast.LENGTH_SHORT).show();
                                             }
                                         });
                                     }
@@ -306,7 +337,8 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
                             @Override
                             public void onError() {
-
+                                hideProcessDialog();
+                                Toast.makeText(getApplicationContext(), R.string.no_internet_text, Toast.LENGTH_SHORT).show();
                             }
 
                         });
@@ -327,7 +359,9 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
                                 TOTAL_PAGES = movieResponse.getTotalPages();
 
                                 if (total_results == 0) {
+                                    hideProcessDialog();
                                     searchResults.setText("No Results Found.");
+                                    recyclerView_one.setVisibility(View.GONE);
                                 } else {
                                     searchResults.setText(total_results + " Results Found.");
                                     for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
@@ -342,6 +376,8 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
                                             @Override
                                             public void onError() {
+                                                hideProcessDialog();
+                                                Toast.makeText(getApplicationContext(), R.string.no_internet_text, Toast.LENGTH_SHORT).show();
                                             }
                                         });
                                     }
@@ -351,7 +387,8 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
                             @Override
                             public void onError() {
-
+                                hideProcessDialog();
+                                Toast.makeText(getApplicationContext(), R.string.no_internet_text, Toast.LENGTH_SHORT).show();
                             }
 
                         }, currentPage);
@@ -365,7 +402,9 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
                                 TOTAL_PAGES = movieResponse.getTotalPages();
 
                                 if (total_results == 0) {
+                                    hideProcessDialog();
                                     searchResults.setText("No Results Found.");
+                                    recyclerView_one.setVisibility(View.GONE);
                                 } else {
                                     searchResults.setText(total_results + " Results Found.");
                                     for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
@@ -380,6 +419,8 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
                                             @Override
                                             public void onError() {
+                                                hideProcessDialog();
+                                                Toast.makeText(getApplicationContext(), R.string.no_internet_text, Toast.LENGTH_SHORT).show();
                                             }
                                         });
                                     }
@@ -389,7 +430,8 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
                             @Override
                             public void onError() {
-
+                                hideProcessDialog();
+                                Toast.makeText(getApplicationContext(), R.string.no_internet_text, Toast.LENGTH_SHORT).show();
                             }
 
                         }, currentPage);
@@ -404,7 +446,9 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
                                 TOTAL_PAGES = movieResponse.getTotalPages();
 
                                 if (total_results == 0) {
+                                    hideProcessDialog();
                                     searchResults.setText("No Results Found.");
+                                    recyclerView_one.setVisibility(View.GONE);
                                 } else {
                                     searchResults.setText(total_results + " Results Found.");
                                     for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
@@ -419,6 +463,8 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
                                             @Override
                                             public void onError() {
+                                                hideProcessDialog();
+                                                Toast.makeText(getApplicationContext(), R.string.no_internet_text, Toast.LENGTH_SHORT).show();
                                             }
                                         });
                                     }
@@ -428,7 +474,8 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
                             @Override
                             public void onError() {
-
+                                hideProcessDialog();
+                                Toast.makeText(getApplicationContext(), R.string.no_internet_text, Toast.LENGTH_SHORT).show();
                             }
 
                         }, currentPage);
@@ -443,7 +490,9 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
                                 TOTAL_PAGES = movieResponse.getTotalPages();
 
                                 if (total_results == 0) {
+                                    hideProcessDialog();
                                     searchResults.setText("No Results Found.");
+                                    recyclerView_one.setVisibility(View.GONE);
                                 } else {
                                     searchResults.setText(total_results + " Results Found.");
                                     for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
@@ -458,6 +507,8 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
                                             @Override
                                             public void onError() {
+                                                hideProcessDialog();
+                                                Toast.makeText(getApplicationContext(), R.string.no_internet_text, Toast.LENGTH_SHORT).show();
                                             }
                                         });
                                     }
@@ -467,7 +518,8 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
                             @Override
                             public void onError() {
-
+                                hideProcessDialog();
+                                Toast.makeText(getApplicationContext(), R.string.no_internet_text, Toast.LENGTH_SHORT).show();
                             }
 
                         }, currentPage);
@@ -485,7 +537,9 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
                         TOTAL_PAGES = movieResponse.getTotalPages();
 
                         if (total_results == 0) {
+                            hideProcessDialog();
                             searchResults.setText("No Results Found.");
+                            recyclerView_one.setVisibility(View.GONE);
                         } else {
                             searchResults.setText(total_results + " Results Found.");
                             for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
@@ -500,6 +554,8 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
                                     @Override
                                     public void onError() {
+                                        hideProcessDialog();
+                                        Toast.makeText(getApplicationContext(), R.string.no_internet_text, Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }
@@ -509,7 +565,8 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
                     @Override
                     public void onError() {
-
+                        hideProcessDialog();
+                        Toast.makeText(getApplicationContext(), R.string.no_internet_text, Toast.LENGTH_SHORT).show();
                     }
 
                 }, currentPage, category);  // here category is the query parameter
@@ -517,6 +574,14 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
                 break;
         }
         return movies;
+    }
+
+    @Override
+    public void onClick(View view, int position) {
+        Intent intent = new Intent(MovieScreen.this, WebViewActivity.class);
+        intent.putExtra("position", String.valueOf(position));
+        intent.putExtra("detail_url", adapter.getItem(position).getDetail_url());
+        startActivity(intent);
     }
 
     public void showProcessDialog() {
@@ -528,18 +593,18 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
         }
     }
 
-    @Override
-    public void onClick(View view, int position) {
-        Intent intent = new Intent(MovieScreen.this, WebViewActivity.class);
-        intent.putExtra("position", String.valueOf(position));
-        intent.putExtra("detail_url", adapter.getItem(position).getDetail_url());
-        startActivity(intent);
-    }
-
     public void hideProcessDialog() {
         if (pd.isShowing()) {
             pd.dismiss();
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void setStatusBarColor() {
+        Window window = this.getWindow();
+
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.black));
+    }
 }

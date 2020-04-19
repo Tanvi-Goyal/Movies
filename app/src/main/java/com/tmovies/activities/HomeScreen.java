@@ -1,13 +1,18 @@
 package com.tmovies.activities;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.tmovies.R;
 import com.tmovies.adapter.CategoriesRecyclerViewAdapter;
@@ -25,10 +30,12 @@ public class HomeScreen extends AppCompatActivity {
     public static CategoriesRecyclerViewAdapter movieAdapter;
     public static CategoriesRecyclerViewAdapter tvAdapter;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+        setStatusBarColor();
 
         recyclerView_one = findViewById(R.id.recyler_one);
         recyclerView_two = findViewById(R.id.recyler_two);
@@ -125,5 +132,12 @@ public class HomeScreen extends AppCompatActivity {
         };
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void setStatusBarColor() {
+        Window window = this.getWindow();
 
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.black));
+    }
 }

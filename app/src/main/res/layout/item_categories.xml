@@ -15,6 +15,7 @@
             android:drawableLeft="@drawable/ic_now_playing"
             android:drawablePadding="5dp"
             android:elevation="5dp"
+            android:textColor="@color/white"
             android:background="@drawable/bg_white"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             app:layout_constraintBottom_toBottomOf="parent"

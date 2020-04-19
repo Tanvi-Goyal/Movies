@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context="com.tmovies.activities.SplashScreen">
 
     <ImageView
@@ -23,7 +24,7 @@
         android:layout_marginTop="20dp"
         android:text="@string/movies"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textStyle="bold"
         app:fontFamily="@font/audiowide"
         app:layout_constraintEnd_toEndOf="parent"
