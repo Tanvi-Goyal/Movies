@@ -11,5 +11,6 @@
     <color name="redLight">#FF5E5E</color>
     <color name="blue">#209AF7</color>
     <color name="purple">#AC3FFF</color>
+    <color name="white">#FFFFFF</color>
 
 </resources>

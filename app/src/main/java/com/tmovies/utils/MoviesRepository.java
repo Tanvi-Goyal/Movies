@@ -40,36 +40,7 @@ public class MoviesRepository {
         return repository;
     }
 
-    public void getPopularMovies(final OnGetMoviesCallback callback) {
-
-        api.getPopularMovies(API_KEY, LANGUAGE, 1)
-                .enqueue(new Callback<MovieResponse>() {
-                    @Override
-                    public void onResponse(@NonNull Call<MovieResponse> call, @NonNull Response<MovieResponse> response) {
-                        if (response.isSuccessful()) {
-                            final MovieResponse moviesResponse = response.body();
-                            if (moviesResponse != null && moviesResponse.getMoviesId() != null) {
-
-                                for (int index = 0; index < moviesResponse.getMoviesId().size(); index++) {
-                                    getMovieDetails(moviesResponse.getMoviesId().get(index), callback);
-                                }
-
-                            } else {
-                                callback.onError();
-                            }
-                        } else {
-                            callback.onError();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<MovieResponse> call, Throwable t) {
-                        callback.onError();
-                    }
-                });
-    }
-
-    public void getLatestMovies(final OnGetMoviesCallback callback) {
+    public void getLatestMovies(final OnGetMoviesResponseCallback callback) {
 
         api.getLatestMovies(API_KEY, LANGUAGE)
                 .enqueue(new Callback<MovieResponse>() {
@@ -78,11 +49,7 @@ public class MoviesRepository {
                         if (response.isSuccessful()) {
                             final MovieResponse moviesResponse = response.body();
                             if (moviesResponse != null && moviesResponse.getMoviesId() != null) {
-
-                                for (int index = 0; index < moviesResponse.getMoviesId().size(); index++) {
-                                    getMovieDetails(moviesResponse.getMoviesId().get(index), callback);
-                                }
-
+                                callback.onMovieResponseSuccess(moviesResponse);
                             } else {
                                 callback.onError();
                             }
@@ -98,20 +65,16 @@ public class MoviesRepository {
                 });
     }
 
-    public void getNowPlayingMovies(final OnGetMoviesCallback callback) {
+    public void getNowPlayingMovies(final OnGetMoviesResponseCallback callback, int currentPage) {
 
-        api.getNowPlayingMovies(API_KEY, LANGUAGE, 1)
+        api.getNowPlayingMovies(API_KEY, LANGUAGE, currentPage)
                 .enqueue(new Callback<MovieResponse>() {
                     @Override
                     public void onResponse(@NonNull Call<MovieResponse> call, @NonNull Response<MovieResponse> response) {
                         if (response.isSuccessful()) {
                             final MovieResponse moviesResponse = response.body();
                             if (moviesResponse != null && moviesResponse.getMoviesId() != null) {
-
-                                for (int index = 0; index < moviesResponse.getMoviesId().size(); index++) {
-                                    getMovieDetails(moviesResponse.getMoviesId().get(index), callback);
-                                }
-
+                                callback.onMovieResponseSuccess(moviesResponse);
                             } else {
                                 callback.onError();
                             }
@@ -127,20 +90,16 @@ public class MoviesRepository {
                 });
     }
 
-    public void getTopRatedMovies(final OnGetMoviesCallback callback) {
+    public void getPopularMovies(final OnGetMoviesResponseCallback callback, int currentPage) {
 
-        api.getTopRatedMovies(API_KEY, LANGUAGE, 1)
+        api.getPopularMovies(API_KEY, LANGUAGE, currentPage)
                 .enqueue(new Callback<MovieResponse>() {
                     @Override
                     public void onResponse(@NonNull Call<MovieResponse> call, @NonNull Response<MovieResponse> response) {
                         if (response.isSuccessful()) {
                             final MovieResponse moviesResponse = response.body();
                             if (moviesResponse != null && moviesResponse.getMoviesId() != null) {
-
-                                for (int index = 0; index < moviesResponse.getMoviesId().size(); index++) {
-                                    getMovieDetails(moviesResponse.getMoviesId().get(index), callback);
-                                }
-
+                                callback.onMovieResponseSuccess(moviesResponse);
                             } else {
                                 callback.onError();
                             }
@@ -156,20 +115,16 @@ public class MoviesRepository {
                 });
     }
 
-    public void getUpcomingMovies(final OnGetMoviesCallback callback) {
+    public void getTopRatedMovies(final OnGetMoviesResponseCallback callback, int currentPage) {
 
-        api.getUpcomingMovies(API_KEY, LANGUAGE, 1)
+        api.getTopRatedMovies(API_KEY, LANGUAGE, currentPage)
                 .enqueue(new Callback<MovieResponse>() {
                     @Override
                     public void onResponse(@NonNull Call<MovieResponse> call, @NonNull Response<MovieResponse> response) {
                         if (response.isSuccessful()) {
                             final MovieResponse moviesResponse = response.body();
                             if (moviesResponse != null && moviesResponse.getMoviesId() != null) {
-
-                                for (int index = 0; index < moviesResponse.getMoviesId().size(); index++) {
-                                    getMovieDetails(moviesResponse.getMoviesId().get(index), callback);
-                                }
-
+                                callback.onMovieResponseSuccess(moviesResponse);
                             } else {
                                 callback.onError();
                             }
@@ -185,7 +140,32 @@ public class MoviesRepository {
                 });
     }
 
-    public void getTrendingMovies(final OnGetMoviesCallback callback) {
+    public void getUpcomingMovies(final OnGetMoviesResponseCallback callback, int currentPage) {
+
+        api.getUpcomingMovies(API_KEY, LANGUAGE, currentPage)
+                .enqueue(new Callback<MovieResponse>() {
+                    @Override
+                    public void onResponse(@NonNull Call<MovieResponse> call, @NonNull Response<MovieResponse> response) {
+                        if (response.isSuccessful()) {
+                            final MovieResponse moviesResponse = response.body();
+                            if (moviesResponse != null && moviesResponse.getMoviesId() != null) {
+                                callback.onMovieResponseSuccess(moviesResponse);
+                            } else {
+                                callback.onError();
+                            }
+                        } else {
+                            callback.onError();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<MovieResponse> call, Throwable t) {
+                        callback.onError();
+                    }
+                });
+    }
+
+    public void getTrendingMovies(final OnGetMoviesResponseCallback callback) {
 
         api.getTrendingMovies("all", "week", API_KEY)
                 .enqueue(new Callback<MovieResponse>() {
@@ -194,11 +174,7 @@ public class MoviesRepository {
                         if (response.isSuccessful()) {
                             final MovieResponse moviesResponse = response.body();
                             if (moviesResponse != null && moviesResponse.getMoviesId() != null) {
-
-                                for (int index = 0; index < moviesResponse.getMoviesId().size(); index++) {
-                                    getMovieDetails(moviesResponse.getMoviesId().get(index), callback);
-                                }
-
+                                callback.onMovieResponseSuccess(moviesResponse);
                             } else {
                                 callback.onError();
                             }
@@ -214,7 +190,7 @@ public class MoviesRepository {
                 });
     }
 
-    public void getTVLatest(final OnGetMoviesCallback callback) {
+    public void getTVLatest(final OnGetMoviesResponseCallback callback) {
 
         api.getTVLatest(API_KEY, LANGUAGE)
                 .enqueue(new Callback<MovieResponse>() {
@@ -223,11 +199,7 @@ public class MoviesRepository {
                         if (response.isSuccessful()) {
                             final MovieResponse moviesResponse = response.body();
                             if (moviesResponse != null && moviesResponse.getMoviesId() != null) {
-
-                                for (int index = 0; index < moviesResponse.getMoviesId().size(); index++) {
-                                    getMovieDetails(moviesResponse.getMoviesId().get(index), callback);
-                                }
-
+                                callback.onMovieResponseSuccess(moviesResponse);
                             } else {
                                 callback.onError();
                             }
@@ -243,9 +215,9 @@ public class MoviesRepository {
                 });
     }
 
-    public void getTVAiringToday(final OnGetMoviesCallback callback) {
+    public void getTVAiringToday(final OnGetMoviesResponseCallback callback, int currentPage) {
 
-        api.getTVAiringToday(API_KEY, LANGUAGE, 1)
+        api.getTVAiringToday(API_KEY, LANGUAGE, currentPage)
                 .enqueue(new Callback<MovieResponse>() {
                     @Override
                     public void onResponse(@NonNull Call<MovieResponse> call, @NonNull Response<MovieResponse> response) {
@@ -253,10 +225,7 @@ public class MoviesRepository {
                             final MovieResponse moviesResponse = response.body();
                             if (moviesResponse != null && moviesResponse.getMoviesId() != null) {
 
-                                for (int index = 0; index < moviesResponse.getMoviesId().size(); index++) {
-                                    getMovieDetails(moviesResponse.getMoviesId().get(index), callback);
-                                }
-
+                                callback.onMovieResponseSuccess(moviesResponse);
                             } else {
                                 callback.onError();
                             }
@@ -272,20 +241,16 @@ public class MoviesRepository {
                 });
     }
 
-    public void getTVOnTheAir(final OnGetMoviesCallback callback) {
+    public void getTVOnTheAir(final OnGetMoviesResponseCallback callback, int currentPage) {
 
-        api.getTVOnTheAir(API_KEY, LANGUAGE, 1)
+        api.getTVOnTheAir(API_KEY, LANGUAGE, currentPage)
                 .enqueue(new Callback<MovieResponse>() {
                     @Override
                     public void onResponse(@NonNull Call<MovieResponse> call, @NonNull Response<MovieResponse> response) {
                         if (response.isSuccessful()) {
                             final MovieResponse moviesResponse = response.body();
                             if (moviesResponse != null && moviesResponse.getMoviesId() != null) {
-
-                                for (int index = 0; index < moviesResponse.getMoviesId().size(); index++) {
-                                    getMovieDetails(moviesResponse.getMoviesId().get(index), callback);
-                                }
-
+                                callback.onMovieResponseSuccess(moviesResponse);
                             } else {
                                 callback.onError();
                             }
@@ -301,20 +266,16 @@ public class MoviesRepository {
                 });
     }
 
-    public void getTVPopular(final OnGetMoviesCallback callback) {
+    public void getTVPopular(final OnGetMoviesResponseCallback callback, int currentPage) {
 
-        api.getTVPopular(API_KEY, LANGUAGE, 1)
+        api.getTVPopular(API_KEY, LANGUAGE, currentPage)
                 .enqueue(new Callback<MovieResponse>() {
                     @Override
                     public void onResponse(@NonNull Call<MovieResponse> call, @NonNull Response<MovieResponse> response) {
                         if (response.isSuccessful()) {
                             final MovieResponse moviesResponse = response.body();
                             if (moviesResponse != null && moviesResponse.getMoviesId() != null) {
-
-                                for (int index = 0; index < moviesResponse.getMoviesId().size(); index++) {
-                                    getMovieDetails(moviesResponse.getMoviesId().get(index), callback);
-                                }
-
+                                callback.onMovieResponseSuccess(moviesResponse);
                             } else {
                                 callback.onError();
                             }
@@ -330,20 +291,16 @@ public class MoviesRepository {
                 });
     }
 
-    public void getTVTopRated(final OnGetMoviesCallback callback) {
+    public void getTVTopRated(final OnGetMoviesResponseCallback callback, int currentPage) {
 
-        api.getTVTopRated(API_KEY, LANGUAGE, 1)
+        api.getTVTopRated(API_KEY, LANGUAGE, currentPage)
                 .enqueue(new Callback<MovieResponse>() {
                     @Override
                     public void onResponse(@NonNull Call<MovieResponse> call, @NonNull Response<MovieResponse> response) {
                         if (response.isSuccessful()) {
                             final MovieResponse moviesResponse = response.body();
                             if (moviesResponse != null && moviesResponse.getMoviesId() != null) {
-
-                                for (int index = 0; index < moviesResponse.getMoviesId().size(); index++) {
-                                    getMovieDetails(moviesResponse.getMoviesId().get(index), callback);
-                                }
-
+                                callback.onMovieResponseSuccess(moviesResponse);
                             } else {
                                 callback.onError();
                             }
@@ -359,7 +316,7 @@ public class MoviesRepository {
                 });
     }
 
-    private void getMovieDetails(MovieId moviesId, final OnGetMoviesCallback callback) {
+    public void getMovieDetails(MovieId moviesId, final OnGetMoviesCallback callback) {
 
         api.getDetails(moviesId.getId(), API_KEY)
                 .enqueue(new Callback<Movie>() {
@@ -368,11 +325,9 @@ public class MoviesRepository {
                         if (response.isSuccessful()) {
                             Movie movie = response.body();
                             if (movie != null) {
-                                Log.w("TAG", "Retrievd " + movie.getTitle());
-                                callback.onSuccess(movie);
+                                callback.onMovieSuccess(movie);
                             }
                         }
-
                     }
 
                     @Override
