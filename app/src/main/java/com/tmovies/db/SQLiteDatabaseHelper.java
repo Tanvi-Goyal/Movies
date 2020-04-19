@@ -1,4 +1,4 @@
-package com.tmovies.utils;
+package com.tmovies.db;
 
 import android.content.ContentValues;
 import android.content.Context;

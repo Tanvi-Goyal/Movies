@@ -1,6 +1,5 @@
 package com.tmovies.activities;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,15 +8,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.View;
-import android.widget.Toast;
 
 import com.tmovies.R;
+import com.tmovies.adapter.CategoriesRecyclerViewAdapter;
 import com.tmovies.constants.AppConstants;
-import com.tmovies.model.Movie;
-import com.tmovies.utils.MoviesRepository;
-import com.tmovies.utils.OnGetMoviesCallback;
-import com.tmovies.utils.RecyclerViewClickListener;
-import com.tmovies.utils.SQLiteDatabaseHelper;
+import com.tmovies.interfaces.RecyclerViewClickListener;
 
 import java.util.ArrayList;
 
@@ -42,38 +37,30 @@ public class HomeScreen extends AppCompatActivity {
         setMoviesCategoryRecycler();
         setTvCategoryRecycler();
 
-//        showProcessDialog();
+        searchView.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
 
-//        searchView.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String s) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String s) {
-//                adapter.getFilter().filter(s);
-//
-//                return false;
-//            }
-//        });
-//
-//        moviesRepository.getPopularMovies(new OnGetMoviesCallback() {
-//            @Override
-//            public void onSuccess(Movie movie) {
-//
-//                hideProcessDialog();
-//                dbHelper.addMovie(movie);
-////                sendNotification(movie);
-//                movies.add(dbHelper.getMovie(movie.getId()));
-//                adapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onError() {
-//                Toast.makeText(HomeScreen.this, getString(R.string.no_internet_text), Toast.LENGTH_SHORT).show();
-//            }
-//        });
+                Intent intent = new Intent(HomeScreen.this, MovieScreen.class);
+                intent.putExtra("type", AppConstants.TYPE_SEARCH);
+                intent.putExtra("category", query);
+                startActivity(intent);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        // Calling twice: first empty text field, second iconify the view
+        searchView.setIconified(true);
+        searchView.setIconified(true);
     }
 
     private void setMoviesCategoryRecycler() {
@@ -137,4 +124,6 @@ public class HomeScreen extends AppCompatActivity {
             }
         };
     }
+
+
 }

@@ -3,6 +3,7 @@ package com.tmovies.constants;
 public class AppConstants {
     public static final String TYPE_MOVIES = "movies";
     public static final String TYPE_TV = "tv";
+    public static final String TYPE_SEARCH = "search";
     public static final String CATEGORY_MOVIE_LATEST = "Latest";
     public static final String CATEGORY_MOVIE_NOW_PLAYING = "Now Playing";
     public static final String CATEGORY_MOVIE_POPULAR = "Popular";

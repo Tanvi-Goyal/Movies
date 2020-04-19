@@ -8,7 +8,7 @@
     <string name="no_next_movie">There is no next movie.</string>
     <string name="api_key">f237940c743ded3e0dfd0193a5b6fb5b</string>
     <string name="movies">MOVIES</string>
-    <string name="search_hint">Search by name or year</string>
+    <string name="search_hint">Search by name</string>
     <string name="movies_text">Movies</string>
     <string name="tv_text">TV</string>
 

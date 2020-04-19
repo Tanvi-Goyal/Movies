@@ -1,4 +1,4 @@
-package com.tmovies.activities;
+package com.tmovies.adapter;
 
 import android.content.Context;
 import android.os.Build;
@@ -11,17 +11,17 @@ import android.widget.TextView;
 
 import com.tmovies.R;
 import com.tmovies.constants.AppConstants;
-import com.tmovies.utils.RecyclerViewClickListener;
+import com.tmovies.interfaces.RecyclerViewClickListener;
 
 import java.util.ArrayList;
 
-class CategoriesRecyclerViewAdapter extends RecyclerView.Adapter<CategoriesRecyclerViewAdapter.ViewHolder> {
+public class CategoriesRecyclerViewAdapter extends RecyclerView.Adapter<CategoriesRecyclerViewAdapter.ViewHolder> {
 
     private ArrayList<String> mData;
     private LayoutInflater mInflater;
     private RecyclerViewClickListener mListener;
 
-    CategoriesRecyclerViewAdapter(Context context, ArrayList<String> data, RecyclerViewClickListener listener) {
+    public CategoriesRecyclerViewAdapter(Context context, ArrayList<String> data, RecyclerViewClickListener listener) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.mListener = listener;
@@ -94,7 +94,7 @@ class CategoriesRecyclerViewAdapter extends RecyclerView.Adapter<CategoriesRecyc
         else return 0;
     }
 
-    String getItem(int id) {
+    public String getItem(int id) {
         return mData.get(id);
     }
 }

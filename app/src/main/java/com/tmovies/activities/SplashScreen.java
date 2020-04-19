@@ -6,7 +6,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import com.tmovies.R;
-import com.tmovies.utils.SQLiteDatabaseHelper;
+import com.tmovies.db.SQLiteDatabaseHelper;
 
 public class SplashScreen extends AppCompatActivity {
 

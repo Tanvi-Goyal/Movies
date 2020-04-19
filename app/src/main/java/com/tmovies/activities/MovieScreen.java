@@ -1,29 +1,27 @@
 package com.tmovies.activities;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
-import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tmovies.R;
+import com.tmovies.adapter.PaginatonListAdapter;
 import com.tmovies.constants.AppConstants;
 import com.tmovies.model.Movie;
 import com.tmovies.model.MovieResponse;
-import com.tmovies.utils.MoviesRepository;
-import com.tmovies.utils.OnGetMoviesCallback;
-import com.tmovies.utils.OnGetMoviesResponseCallback;
+import com.tmovies.repository.MoviesRepository;
+import com.tmovies.interfaces.OnGetMoviesCallback;
+import com.tmovies.interfaces.OnGetMoviesResponseCallback;
 import com.tmovies.utils.PaginationScrollListener;
-import com.tmovies.utils.RecyclerViewClickListener;
-import com.tmovies.utils.SQLiteDatabaseHelper;
+import com.tmovies.interfaces.RecyclerViewClickListener;
+import com.tmovies.db.SQLiteDatabaseHelper;
 
 import java.util.ArrayList;
 
@@ -31,7 +29,7 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
     RecyclerView recyclerView_one;
     TextView title;
-    LinearLayoutManager layoutManager;
+    TextView searchResults;
     private ArrayList<Movie> list = new ArrayList<>();
     public static PaginatonListAdapter adapter;
     private MoviesRepository moviesRepository;
@@ -61,29 +59,16 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
         pd = new ProgressDialog(this);
 
         title = findViewById(R.id.movie_category);
+        searchResults = findViewById(R.id.searchResults);
         recyclerView_one = findViewById(R.id.recyler_one);
-        title.setText(category);
+
+        if(type.equals(AppConstants.TYPE_MOVIES) || type.equals(AppConstants.TYPE_TV)) title.setText(category);
+        else title.setText("Search Results for - " + category);
 
         showProcessDialog();
         getMovies(type, category);
         adapter = new PaginatonListAdapter(MovieScreen.this, list, this);
         setRecyclerScroll(recyclerView_one, adapter);
-
-//        setMoviesRecycler();
-
-//        searchView.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String s) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String s) {
-//                adapter.getFilter().filter(s);
-//
-//                return false;
-//            }
-//        });
     }
 
     @Override
@@ -130,16 +115,379 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
     private ArrayList<Movie> getMovies(String type, String category) {
         final ArrayList<Movie> movies = new ArrayList<>();
-        if (type.equals(AppConstants.TYPE_MOVIES)) {
-            switch (category) {
-                case AppConstants.CATEGORY_MOVIE_NOW_PLAYING:
-                    moviesRepository.getNowPlayingMovies(new OnGetMoviesResponseCallback() {
+        switch (type) {
+            case AppConstants.TYPE_MOVIES:
+                switch (category) {
+                    case AppConstants.CATEGORY_MOVIE_NOW_PLAYING:
+                        moviesRepository.getNowPlayingMovies(new OnGetMoviesResponseCallback() {
 
-                        @Override
-                        public void onMovieResponseSuccess(MovieResponse movieResponse) {
-                            total_results = movieResponse.getTotalResults();
-                            TOTAL_PAGES = movieResponse.getTotalPages();
+                            @Override
+                            public void onMovieResponseSuccess(MovieResponse movieResponse) {
+                                total_results = movieResponse.getTotalResults();
+                                TOTAL_PAGES = movieResponse.getTotalPages();
 
+                                if (total_results == 0) {
+                                    searchResults.setText("No Results Found.");
+                                } else {
+                                    searchResults.setText(total_results + " Results Found.");
+                                    for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
+                                        moviesRepository.getMovieDetails(movieResponse.getMoviesId().get(index), new OnGetMoviesCallback() {
+                                            @Override
+                                            public void onMovieSuccess(Movie movie) {
+                                                hideProcessDialog();
+                                                dbHelper.addMovie(movie);
+                                                list.add(dbHelper.getMovie(movie.getId()));
+                                                adapter.notifyDataSetChanged();
+                                            }
+
+                                            @Override
+                                            public void onError() {
+                                            }
+                                        });
+                                    }
+                                    if (currentPage == TOTAL_PAGES) adapter.removeLoadingFooter();
+                                }
+                            }
+
+                            @Override
+                            public void onError() {
+
+                            }
+
+                        }, currentPage);
+                        break;
+                    case AppConstants.CATEGORY_MOVIE_POPULAR:
+                        moviesRepository.getPopularMovies(new OnGetMoviesResponseCallback() {
+
+                            @Override
+                            public void onMovieResponseSuccess(MovieResponse movieResponse) {
+                                total_results = movieResponse.getTotalResults();
+                                TOTAL_PAGES = movieResponse.getTotalPages();
+
+                                if (total_results == 0) {
+                                    searchResults.setText("No Results Found.");
+                                } else {
+                                    searchResults.setText(total_results + " Results Found.");
+                                    for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
+                                        moviesRepository.getMovieDetails(movieResponse.getMoviesId().get(index), new OnGetMoviesCallback() {
+                                            @Override
+                                            public void onMovieSuccess(Movie movie) {
+                                                hideProcessDialog();
+                                                dbHelper.addMovie(movie);
+                                                list.add(dbHelper.getMovie(movie.getId()));
+                                                adapter.notifyDataSetChanged();
+                                            }
+
+                                            @Override
+                                            public void onError() {
+                                            }
+                                        });
+                                    }
+                                    if (currentPage == TOTAL_PAGES) adapter.removeLoadingFooter();
+                                }
+                            }
+
+                            @Override
+                            public void onError() {
+
+                            }
+
+                        }, currentPage);
+                        break;
+
+                    case AppConstants.CATEGORY_MOVIE_TOP_RATED:
+                        moviesRepository.getTopRatedMovies(new OnGetMoviesResponseCallback() {
+
+                            @Override
+                            public void onMovieResponseSuccess(MovieResponse movieResponse) {
+                                total_results = movieResponse.getTotalResults();
+                                TOTAL_PAGES = movieResponse.getTotalPages();
+
+                                if (total_results == 0) {
+                                    searchResults.setText("No Results Found.");
+                                } else {
+                                    searchResults.setText(total_results + " Results Found.");
+                                    for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
+                                        moviesRepository.getMovieDetails(movieResponse.getMoviesId().get(index), new OnGetMoviesCallback() {
+                                            @Override
+                                            public void onMovieSuccess(Movie movie) {
+                                                hideProcessDialog();
+                                                dbHelper.addMovie(movie);
+                                                list.add(dbHelper.getMovie(movie.getId()));
+                                                adapter.notifyDataSetChanged();
+                                            }
+
+                                            @Override
+                                            public void onError() {
+                                            }
+                                        });
+                                    }
+                                    if (currentPage == TOTAL_PAGES) adapter.removeLoadingFooter();
+                                }
+                            }
+
+                            @Override
+                            public void onError() {
+
+                            }
+
+                        }, currentPage);
+                        break;
+
+                    case AppConstants.CATEGORY_MOVIE_UPCOMING:
+                        moviesRepository.getUpcomingMovies(new OnGetMoviesResponseCallback() {
+
+                            @Override
+                            public void onMovieResponseSuccess(MovieResponse movieResponse) {
+                                total_results = movieResponse.getTotalResults();
+                                TOTAL_PAGES = movieResponse.getTotalPages();
+
+                                if (total_results == 0) {
+                                    searchResults.setText("No Results Found.");
+                                } else {
+                                    searchResults.setText(total_results + " Results Found.");
+                                    for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
+                                        moviesRepository.getMovieDetails(movieResponse.getMoviesId().get(index), new OnGetMoviesCallback() {
+                                            @Override
+                                            public void onMovieSuccess(Movie movie) {
+                                                hideProcessDialog();
+                                                dbHelper.addMovie(movie);
+                                                list.add(dbHelper.getMovie(movie.getId()));
+                                                adapter.notifyDataSetChanged();
+                                            }
+
+                                            @Override
+                                            public void onError() {
+                                            }
+                                        });
+                                    }
+                                    if (currentPage == TOTAL_PAGES) adapter.removeLoadingFooter();
+                                }
+                            }
+
+                            @Override
+                            public void onError() {
+
+                            }
+
+                        }, currentPage);
+                        break;
+
+                    case AppConstants.CATEGORY_MOVIE_TRENDING:
+                        moviesRepository.getTrendingMovies(new OnGetMoviesResponseCallback() {
+
+                            @Override
+                            public void onMovieResponseSuccess(MovieResponse movieResponse) {
+                                total_results = movieResponse.getTotalResults();
+                                TOTAL_PAGES = movieResponse.getTotalPages();
+
+                                if (total_results == 0) {
+                                    searchResults.setText("No Results Found.");
+                                } else {
+                                    searchResults.setText(total_results + " Results Found.");
+                                    for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
+                                        moviesRepository.getMovieDetails(movieResponse.getMoviesId().get(index), new OnGetMoviesCallback() {
+                                            @Override
+                                            public void onMovieSuccess(Movie movie) {
+                                                hideProcessDialog();
+                                                dbHelper.addMovie(movie);
+                                                list.add(dbHelper.getMovie(movie.getId()));
+                                                adapter.notifyDataSetChanged();
+                                            }
+
+                                            @Override
+                                            public void onError() {
+                                            }
+                                        });
+                                    }
+                                    if (currentPage == TOTAL_PAGES) adapter.removeLoadingFooter();
+                                }
+                            }
+
+                            @Override
+                            public void onError() {
+
+                            }
+
+                        });
+                        break;
+                    default:
+                        Toast.makeText(this, "Invalid Category", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case AppConstants.TYPE_TV:
+                switch (category) {
+
+                    case AppConstants.CATEGORY_TV_AIRING_TODAY:
+                        moviesRepository.getTVAiringToday(new OnGetMoviesResponseCallback() {
+
+                            @Override
+                            public void onMovieResponseSuccess(MovieResponse movieResponse) {
+                                total_results = movieResponse.getTotalResults();
+                                TOTAL_PAGES = movieResponse.getTotalPages();
+
+                                if (total_results == 0) {
+                                    searchResults.setText("No Results Found.");
+                                } else {
+                                    searchResults.setText(total_results + " Results Found.");
+                                    for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
+                                        moviesRepository.getMovieDetails(movieResponse.getMoviesId().get(index), new OnGetMoviesCallback() {
+                                            @Override
+                                            public void onMovieSuccess(Movie movie) {
+                                                hideProcessDialog();
+                                                dbHelper.addMovie(movie);
+                                                list.add(dbHelper.getMovie(movie.getId()));
+                                                adapter.notifyDataSetChanged();
+                                            }
+
+                                            @Override
+                                            public void onError() {
+                                            }
+                                        });
+                                    }
+                                    if (currentPage == TOTAL_PAGES) adapter.removeLoadingFooter();
+                                }
+                            }
+
+                            @Override
+                            public void onError() {
+
+                            }
+
+                        }, currentPage);
+                        break;
+                    case AppConstants.CATEGORY_TV_ON_THE_AIR:
+                        moviesRepository.getTVOnTheAir(new OnGetMoviesResponseCallback() {
+
+                            @Override
+                            public void onMovieResponseSuccess(MovieResponse movieResponse) {
+                                total_results = movieResponse.getTotalResults();
+                                TOTAL_PAGES = movieResponse.getTotalPages();
+
+                                if (total_results == 0) {
+                                    searchResults.setText("No Results Found.");
+                                } else {
+                                    searchResults.setText(total_results + " Results Found.");
+                                    for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
+                                        moviesRepository.getMovieDetails(movieResponse.getMoviesId().get(index), new OnGetMoviesCallback() {
+                                            @Override
+                                            public void onMovieSuccess(Movie movie) {
+                                                hideProcessDialog();
+                                                dbHelper.addMovie(movie);
+                                                list.add(dbHelper.getMovie(movie.getId()));
+                                                adapter.notifyDataSetChanged();
+                                            }
+
+                                            @Override
+                                            public void onError() {
+                                            }
+                                        });
+                                    }
+                                    if (currentPage == TOTAL_PAGES) adapter.removeLoadingFooter();
+                                }
+                            }
+
+                            @Override
+                            public void onError() {
+
+                            }
+
+                        }, currentPage);
+                        break;
+
+                    case AppConstants.CATEGORY_TV_POPULAR:
+                        moviesRepository.getTVPopular(new OnGetMoviesResponseCallback() {
+
+                            @Override
+                            public void onMovieResponseSuccess(MovieResponse movieResponse) {
+                                total_results = movieResponse.getTotalResults();
+                                TOTAL_PAGES = movieResponse.getTotalPages();
+
+                                if (total_results == 0) {
+                                    searchResults.setText("No Results Found.");
+                                } else {
+                                    searchResults.setText(total_results + " Results Found.");
+                                    for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
+                                        moviesRepository.getMovieDetails(movieResponse.getMoviesId().get(index), new OnGetMoviesCallback() {
+                                            @Override
+                                            public void onMovieSuccess(Movie movie) {
+                                                hideProcessDialog();
+                                                dbHelper.addMovie(movie);
+                                                list.add(dbHelper.getMovie(movie.getId()));
+                                                adapter.notifyDataSetChanged();
+                                            }
+
+                                            @Override
+                                            public void onError() {
+                                            }
+                                        });
+                                    }
+                                    if (currentPage == TOTAL_PAGES) adapter.removeLoadingFooter();
+                                }
+                            }
+
+                            @Override
+                            public void onError() {
+
+                            }
+
+                        }, currentPage);
+                        break;
+
+                    case AppConstants.CATEGORY_TV_TOP_RATED:
+                        moviesRepository.getTVTopRated(new OnGetMoviesResponseCallback() {
+
+                            @Override
+                            public void onMovieResponseSuccess(MovieResponse movieResponse) {
+                                total_results = movieResponse.getTotalResults();
+                                TOTAL_PAGES = movieResponse.getTotalPages();
+
+                                if (total_results == 0) {
+                                    searchResults.setText("No Results Found.");
+                                } else {
+                                    searchResults.setText(total_results + " Results Found.");
+                                    for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
+                                        moviesRepository.getMovieDetails(movieResponse.getMoviesId().get(index), new OnGetMoviesCallback() {
+                                            @Override
+                                            public void onMovieSuccess(Movie movie) {
+                                                hideProcessDialog();
+                                                dbHelper.addMovie(movie);
+                                                list.add(dbHelper.getMovie(movie.getId()));
+                                                adapter.notifyDataSetChanged();
+                                            }
+
+                                            @Override
+                                            public void onError() {
+                                            }
+                                        });
+                                    }
+                                    if (currentPage == TOTAL_PAGES) adapter.removeLoadingFooter();
+                                }
+                            }
+
+                            @Override
+                            public void onError() {
+
+                            }
+
+                        }, currentPage);
+                        break;
+                    default:
+                        Toast.makeText(this, "Invalid Category", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case AppConstants.TYPE_SEARCH:
+                moviesRepository.getSearchResults(new OnGetMoviesResponseCallback() {
+
+                    @Override
+                    public void onMovieResponseSuccess(MovieResponse movieResponse) {
+                        total_results = movieResponse.getTotalResults();
+                        TOTAL_PAGES = movieResponse.getTotalPages();
+
+                        if (total_results == 0) {
+                            searchResults.setText("No Results Found.");
+                        } else {
+                            searchResults.setText(total_results + " Results Found.");
                             for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
                                 moviesRepository.getMovieDetails(movieResponse.getMoviesId().get(index), new OnGetMoviesCallback() {
                                     @Override
@@ -154,297 +502,20 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
                                     public void onError() {
                                     }
                                 });
-                                if (currentPage == TOTAL_PAGES) adapter.removeLoadingFooter();
                             }
+                            if (currentPage == TOTAL_PAGES) adapter.removeLoadingFooter();
                         }
+                    }
 
-                        @Override
-                        public void onError() {
+                    @Override
+                    public void onError() {
 
-                        }
+                    }
 
-                    }, currentPage);
-                    break;
-                case AppConstants.CATEGORY_MOVIE_POPULAR:
-                    moviesRepository.getPopularMovies(new OnGetMoviesResponseCallback() {
+                }, currentPage, category);  // here category is the query parameter
 
-                        @Override
-                        public void onMovieResponseSuccess(MovieResponse movieResponse) {
-                            total_results = movieResponse.getTotalResults();
-                            TOTAL_PAGES = movieResponse.getTotalPages();
-
-                            for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
-                                moviesRepository.getMovieDetails(movieResponse.getMoviesId().get(index), new OnGetMoviesCallback() {
-                                    @Override
-                                    public void onMovieSuccess(Movie movie) {
-                                        hideProcessDialog();
-                                        dbHelper.addMovie(movie);
-                                        list.add(dbHelper.getMovie(movie.getId()));
-                                        adapter.notifyDataSetChanged();
-                                    }
-
-                                    @Override
-                                    public void onError() {
-                                    }
-                                });
-                                if (currentPage == TOTAL_PAGES) adapter.removeLoadingFooter();
-                            }
-                        }
-
-                        @Override
-                        public void onError() {
-
-                        }
-
-                    }, currentPage);
-                    break;
-
-                case AppConstants.CATEGORY_MOVIE_TOP_RATED:
-                    moviesRepository.getTopRatedMovies(new OnGetMoviesResponseCallback() {
-
-                        @Override
-                        public void onMovieResponseSuccess(MovieResponse movieResponse) {
-                            total_results = movieResponse.getTotalResults();
-                            TOTAL_PAGES = movieResponse.getTotalPages();
-
-                            for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
-                                moviesRepository.getMovieDetails(movieResponse.getMoviesId().get(index), new OnGetMoviesCallback() {
-                                    @Override
-                                    public void onMovieSuccess(Movie movie) {
-                                        hideProcessDialog();
-                                        dbHelper.addMovie(movie);
-                                        list.add(dbHelper.getMovie(movie.getId()));
-                                        adapter.notifyDataSetChanged();
-                                    }
-
-                                    @Override
-                                    public void onError() {
-                                    }
-                                });
-                                if (currentPage == TOTAL_PAGES) adapter.removeLoadingFooter();
-                            }
-                        }
-
-                        @Override
-                        public void onError() {
-
-                        }
-
-                    }, currentPage);
-                    break;
-
-                case AppConstants.CATEGORY_MOVIE_UPCOMING:
-                    moviesRepository.getUpcomingMovies(new OnGetMoviesResponseCallback() {
-
-                        @Override
-                        public void onMovieResponseSuccess(MovieResponse movieResponse) {
-                            total_results = movieResponse.getTotalResults();
-                            TOTAL_PAGES = movieResponse.getTotalPages();
-
-                            for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
-                                moviesRepository.getMovieDetails(movieResponse.getMoviesId().get(index), new OnGetMoviesCallback() {
-                                    @Override
-                                    public void onMovieSuccess(Movie movie) {
-                                        hideProcessDialog();
-                                        dbHelper.addMovie(movie);
-                                        list.add(dbHelper.getMovie(movie.getId()));
-                                        adapter.notifyDataSetChanged();
-                                    }
-
-                                    @Override
-                                    public void onError() {
-                                    }
-                                });
-                                if (currentPage == TOTAL_PAGES) adapter.removeLoadingFooter();
-                            }
-                        }
-
-                        @Override
-                        public void onError() {
-
-                        }
-
-                    }, currentPage);
-                    break;
-
-                case AppConstants.CATEGORY_MOVIE_TRENDING:
-                    moviesRepository.getTrendingMovies(new OnGetMoviesResponseCallback() {
-
-                        @Override
-                        public void onMovieResponseSuccess(MovieResponse movieResponse) {
-                            total_results = movieResponse.getTotalResults();
-                            TOTAL_PAGES = movieResponse.getTotalPages();
-
-                            for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
-                                moviesRepository.getMovieDetails(movieResponse.getMoviesId().get(index), new OnGetMoviesCallback() {
-                                    @Override
-                                    public void onMovieSuccess(Movie movie) {
-                                        hideProcessDialog();
-                                        dbHelper.addMovie(movie);
-                                        list.add(dbHelper.getMovie(movie.getId()));
-                                        adapter.notifyDataSetChanged();
-                                    }
-
-                                    @Override
-                                    public void onError() {
-                                    }
-                                });
-                                if (currentPage == TOTAL_PAGES) adapter.removeLoadingFooter();
-                            }
-                        }
-
-                        @Override
-                        public void onError() {
-
-                        }
-
-                    });
-                    break;
-                default:
-                    Toast.makeText(this, "Invalid Category", Toast.LENGTH_SHORT).show();
-            }
-        } else if (type.equals(AppConstants.TYPE_TV)) {
-            switch (category) {
-
-                case AppConstants.CATEGORY_TV_AIRING_TODAY:
-                    moviesRepository.getTVAiringToday(new OnGetMoviesResponseCallback() {
-
-                        @Override
-                        public void onMovieResponseSuccess(MovieResponse movieResponse) {
-                            total_results = movieResponse.getTotalResults();
-                            TOTAL_PAGES = movieResponse.getTotalPages();
-
-                            for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
-                                moviesRepository.getMovieDetails(movieResponse.getMoviesId().get(index), new OnGetMoviesCallback() {
-                                    @Override
-                                    public void onMovieSuccess(Movie movie) {
-                                        hideProcessDialog();
-                                        dbHelper.addMovie(movie);
-                                        list.add(dbHelper.getMovie(movie.getId()));
-                                        adapter.notifyDataSetChanged();
-                                    }
-
-                                    @Override
-                                    public void onError() {
-                                    }
-                                });
-                                if (currentPage == TOTAL_PAGES) adapter.removeLoadingFooter();
-                            }
-                        }
-
-                        @Override
-                        public void onError() {
-
-                        }
-
-                    }, currentPage);
-                    break;
-                case AppConstants.CATEGORY_TV_ON_THE_AIR:
-                    moviesRepository.getTVOnTheAir(new OnGetMoviesResponseCallback() {
-
-                        @Override
-                        public void onMovieResponseSuccess(MovieResponse movieResponse) {
-                            total_results = movieResponse.getTotalResults();
-                            TOTAL_PAGES = movieResponse.getTotalPages();
-
-                            for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
-                                moviesRepository.getMovieDetails(movieResponse.getMoviesId().get(index), new OnGetMoviesCallback() {
-                                    @Override
-                                    public void onMovieSuccess(Movie movie) {
-                                        hideProcessDialog();
-                                        dbHelper.addMovie(movie);
-                                        list.add(dbHelper.getMovie(movie.getId()));
-                                        adapter.notifyDataSetChanged();
-                                    }
-
-                                    @Override
-                                    public void onError() {
-                                    }
-                                });
-                                if (currentPage == TOTAL_PAGES) adapter.removeLoadingFooter();
-                            }
-                        }
-
-                        @Override
-                        public void onError() {
-
-                        }
-
-                    }, currentPage);
-                    break;
-
-                case AppConstants.CATEGORY_TV_POPULAR:
-                    moviesRepository.getTVPopular(new OnGetMoviesResponseCallback() {
-
-                        @Override
-                        public void onMovieResponseSuccess(MovieResponse movieResponse) {
-                            total_results = movieResponse.getTotalResults();
-                            TOTAL_PAGES = movieResponse.getTotalPages();
-
-                            for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
-                                moviesRepository.getMovieDetails(movieResponse.getMoviesId().get(index), new OnGetMoviesCallback() {
-                                    @Override
-                                    public void onMovieSuccess(Movie movie) {
-                                        hideProcessDialog();
-                                        dbHelper.addMovie(movie);
-                                        list.add(dbHelper.getMovie(movie.getId()));
-                                        adapter.notifyDataSetChanged();
-                                    }
-
-                                    @Override
-                                    public void onError() {
-                                    }
-                                });
-                                if (currentPage == TOTAL_PAGES) adapter.removeLoadingFooter();
-                            }
-                        }
-
-                        @Override
-                        public void onError() {
-
-                        }
-
-                    }, currentPage);
-                    break;
-
-                case AppConstants.CATEGORY_TV_TOP_RATED:
-                    moviesRepository.getTVTopRated(new OnGetMoviesResponseCallback() {
-
-                        @Override
-                        public void onMovieResponseSuccess(MovieResponse movieResponse) {
-                            total_results = movieResponse.getTotalResults();
-                            TOTAL_PAGES = movieResponse.getTotalPages();
-
-                            for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
-                                moviesRepository.getMovieDetails(movieResponse.getMoviesId().get(index), new OnGetMoviesCallback() {
-                                    @Override
-                                    public void onMovieSuccess(Movie movie) {
-                                        hideProcessDialog();
-                                        dbHelper.addMovie(movie);
-                                        list.add(dbHelper.getMovie(movie.getId()));
-                                        adapter.notifyDataSetChanged();
-                                    }
-
-                                    @Override
-                                    public void onError() {
-                                    }
-                                });
-                                if (currentPage == TOTAL_PAGES) adapter.removeLoadingFooter();
-                            }
-                        }
-
-                        @Override
-                        public void onError() {
-
-                        }
-
-                    }, currentPage);
-                    break;
-                default:
-                    Toast.makeText(this, "Invalid Category", Toast.LENGTH_SHORT).show();
-            }
+                break;
         }
-
         return movies;
     }
 

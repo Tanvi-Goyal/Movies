@@ -1,4 +1,4 @@
-package com.tmovies.activities;
+package com.tmovies.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -16,10 +16,9 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.tmovies.R;
 import com.tmovies.model.Movie;
-import com.tmovies.utils.RecyclerViewClickListener;
+import com.tmovies.interfaces.RecyclerViewClickListener;
 
 import java.util.ArrayList;
-
 
 public class PaginatonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -75,15 +74,6 @@ public class PaginatonListAdapter extends RecyclerView.Adapter<RecyclerView.View
                         .applyDefaultRequestOptions(requestOptions)
                         .load(IMAGE_BASE_URL + movie.getPosterPath())
                         .into(listVH.movie_poster);
-
-//                listVH.expandableRelativeLayout.setExpanded(model.isExpanded());
-//
-//                listVH.title.setText(model.getTitle());
-//                listVH.ratingBar.setRating(model.getRating());
-//                listVH.overview.setText(model.getOverview());
-//                listVH.rd.setText(model.getRelease_date());
-//                Glide.with(context).load(model.getThumbnail()).into(listVH.icon);
-
                 break;
             case LOADING:
 //                Do nothing
@@ -118,7 +108,7 @@ public class PaginatonListAdapter extends RecyclerView.Adapter<RecyclerView.View
         isLoadingAdded = false;
     }
 
-    Movie getItem(int id) {
+    public Movie getItem(int id) {
         return list.get(id);
     }
 

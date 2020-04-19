@@ -1,4 +1,4 @@
-package com.tmovies.utils;
+package com.tmovies.interfaces;
 
 import android.view.View;
 

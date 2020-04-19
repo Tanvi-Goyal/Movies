@@ -1,4 +1,4 @@
-package com.tmovies.utils;
+package com.tmovies.interfaces;
 
 import com.tmovies.model.Movie;
 import com.tmovies.model.MovieResponse;
@@ -8,7 +8,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-interface TMDbApi {
+public interface TMDBApiService {
 
     @GET("movie/popular")
     Call<MovieResponse> getPopularMovies(
@@ -66,7 +66,7 @@ interface TMDbApi {
     );
 
     @GET("tv/on_the_air")
-    Call<MovieResponse> getTVOnTheAir (
+    Call<MovieResponse> getTVOnTheAir(
             @Query("api_key") String apiKey,
             @Query("language") String language,
             @Query("page") int page
@@ -83,6 +83,13 @@ interface TMDbApi {
     Call<MovieResponse> getTVTopRated(
             @Query("api_key") String apiKey,
             @Query("language") String language,
+            @Query("page") int page
+    );
+
+    @GET("search/movie")
+    Call<MovieResponse> getSearchResults(
+            @Query("api_key") String apiKey,
+            @Query("query") String query,
             @Query("page") int page
     );
 

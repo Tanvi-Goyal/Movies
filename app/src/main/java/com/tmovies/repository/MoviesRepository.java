@@ -1,11 +1,13 @@
-package com.tmovies.utils;
+package com.tmovies.repository;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.tmovies.model.Movie;
 import com.tmovies.model.MovieId;
 import com.tmovies.model.MovieResponse;
+import com.tmovies.interfaces.OnGetMoviesCallback;
+import com.tmovies.interfaces.OnGetMoviesResponseCallback;
+import com.tmovies.interfaces.TMDBApiService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,9 +22,9 @@ import static com.tmovies.constants.ApiConstants.LANGUAGE;
 public class MoviesRepository {
 
     private static MoviesRepository repository;
-    private TMDbApi api;
+    private TMDBApiService api;
 
-    private MoviesRepository(TMDbApi api) {
+    private MoviesRepository(TMDBApiService api) {
         this.api = api;
     }
 
@@ -34,7 +36,7 @@ public class MoviesRepository {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
-            repository = new MoviesRepository(retrofit.create(TMDbApi.class));
+            repository = new MoviesRepository(retrofit.create(TMDBApiService.class));
         }
 
         return repository;
@@ -294,6 +296,31 @@ public class MoviesRepository {
     public void getTVTopRated(final OnGetMoviesResponseCallback callback, int currentPage) {
 
         api.getTVTopRated(API_KEY, LANGUAGE, currentPage)
+                .enqueue(new Callback<MovieResponse>() {
+                    @Override
+                    public void onResponse(@NonNull Call<MovieResponse> call, @NonNull Response<MovieResponse> response) {
+                        if (response.isSuccessful()) {
+                            final MovieResponse moviesResponse = response.body();
+                            if (moviesResponse != null && moviesResponse.getMoviesId() != null) {
+                                callback.onMovieResponseSuccess(moviesResponse);
+                            } else {
+                                callback.onError();
+                            }
+                        } else {
+                            callback.onError();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<MovieResponse> call, Throwable t) {
+                        callback.onError();
+                    }
+                });
+    }
+
+    public void getSearchResults(final OnGetMoviesResponseCallback callback, int currentPage, String query) {
+
+        api.getSearchResults(API_KEY, query, currentPage)
                 .enqueue(new Callback<MovieResponse>() {
                     @Override
                     public void onResponse(@NonNull Call<MovieResponse> call, @NonNull Response<MovieResponse> response) {
