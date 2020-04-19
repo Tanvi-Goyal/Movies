@@ -12,6 +12,9 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.tmovies.R;
 import com.tmovies.model.Movie;
 
@@ -34,7 +37,7 @@ class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.V
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.vertical_movie_item, parent, false);
+        View view = mInflater.inflate(R.layout.item_movie, parent, false);
         return new ViewHolder(view);
     }
 
@@ -111,9 +114,11 @@ class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.V
             movie_name.setText(movie.getTitle());
 
             movie_rating.setRating(movie.getRating() / 2);
-
+            RequestOptions requestOptions = new RequestOptions().transform(new RoundedCorners(20))
+                    .diskCacheStrategy(DiskCacheStrategy.ALL);
 
             Glide.with(itemView)
+                    .applyDefaultRequestOptions(requestOptions)
                     .load(IMAGE_BASE_URL + movie.getPosterPath())
                     .into(movie_poster);
 

@@ -33,7 +33,6 @@ public class WebViewActivity extends AppCompatActivity {
         backward = findViewById(R.id.btn_backward);
         forward = findViewById(R.id.btn_forward);
 
-
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 

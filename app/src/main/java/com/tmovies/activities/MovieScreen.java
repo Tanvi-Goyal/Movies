@@ -87,7 +87,7 @@ public class MovieScreen extends AppCompatActivity implements MyRecyclerViewAdap
                         public void onSuccess(Movie movie) {
                             hideProcessDialog();
                             dbHelper.addMovie(movie);
-                            movies.add(movie);
+                            movies.add(dbHelper.getMovie(movie.getId()));
                             adapter.notifyDataSetChanged();
                         }
 
@@ -104,7 +104,7 @@ public class MovieScreen extends AppCompatActivity implements MyRecyclerViewAdap
                         public void onSuccess(Movie movie) {
                             hideProcessDialog();
                             dbHelper.addMovie(movie);
-                            movies.add(movie);
+                            movies.add(dbHelper.getMovie(movie.getId()));
                             adapter.notifyDataSetChanged();
                         }
 
@@ -122,7 +122,7 @@ public class MovieScreen extends AppCompatActivity implements MyRecyclerViewAdap
                         public void onSuccess(Movie movie) {
                             hideProcessDialog();
                             dbHelper.addMovie(movie);
-                            movies.add(movie);
+                            movies.add(dbHelper.getMovie(movie.getId()));
                             adapter.notifyDataSetChanged();
                         }
 
@@ -140,7 +140,7 @@ public class MovieScreen extends AppCompatActivity implements MyRecyclerViewAdap
                         public void onSuccess(Movie movie) {
                             hideProcessDialog();
                             dbHelper.addMovie(movie);
-                            movies.add(movie);
+                            movies.add(dbHelper.getMovie(movie.getId()));
                             adapter.notifyDataSetChanged();
                         }
 
@@ -158,7 +158,7 @@ public class MovieScreen extends AppCompatActivity implements MyRecyclerViewAdap
                         public void onSuccess(Movie movie) {
                             hideProcessDialog();
                             dbHelper.addMovie(movie);
-                            movies.add(movie);
+                            movies.add(dbHelper.getMovie(movie.getId()));
                             adapter.notifyDataSetChanged();
                         }
 
@@ -181,7 +181,7 @@ public class MovieScreen extends AppCompatActivity implements MyRecyclerViewAdap
                         public void onSuccess(Movie movie) {
                             hideProcessDialog();
                             dbHelper.addMovie(movie);
-                            movies.add(movie);
+                            movies.add(dbHelper.getMovie(movie.getId()));
                             adapter.notifyDataSetChanged();
                         }
 
@@ -198,7 +198,7 @@ public class MovieScreen extends AppCompatActivity implements MyRecyclerViewAdap
                         public void onSuccess(Movie movie) {
                             hideProcessDialog();
                             dbHelper.addMovie(movie);
-                            movies.add(movie);
+                            movies.add(dbHelper.getMovie(movie.getId()));
                             adapter.notifyDataSetChanged();
                         }
 
@@ -216,7 +216,7 @@ public class MovieScreen extends AppCompatActivity implements MyRecyclerViewAdap
                         public void onSuccess(Movie movie) {
                             hideProcessDialog();
                             dbHelper.addMovie(movie);
-                            movies.add(movie);
+                            movies.add(dbHelper.getMovie(movie.getId()));
                             adapter.notifyDataSetChanged();
                         }
 
@@ -234,7 +234,7 @@ public class MovieScreen extends AppCompatActivity implements MyRecyclerViewAdap
                         public void onSuccess(Movie movie) {
                             hideProcessDialog();
                             dbHelper.addMovie(movie);
-                            movies.add(movie);
+                            movies.add(dbHelper.getMovie(movie.getId()));
                             adapter.notifyDataSetChanged();
                         }
 

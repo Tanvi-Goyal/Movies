@@ -31,6 +31,8 @@ public class Movie implements Serializable {
     @Expose
     private float rating;
 
+    @SerializedName("homepage")
+    @Expose
     private String detail_url;
 
     public Movie() {
