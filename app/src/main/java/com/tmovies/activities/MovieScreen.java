@@ -136,10 +136,10 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
                                 if (total_results == 0) {
                                     hideProcessDialog();
-                                    searchResults.setText("No Results Found.");
+                                    searchResults.setText("No Results Found");
                                     recyclerView_one.setVisibility(View.GONE);
                                 } else {
-                                    searchResults.setText(total_results + " Results Found.");
+                                    searchResults.setText(total_results + " Results Found");
                                     for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
                                         moviesRepository.getMovieDetails(movieResponse.getMoviesId().get(index), new OnGetMoviesCallback() {
                                             @Override
@@ -179,10 +179,10 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
                                 if (total_results == 0) {
                                     hideProcessDialog();
-                                    searchResults.setText("No Results Found.");
+                                    searchResults.setText("No Results Found");
                                     recyclerView_one.setVisibility(View.GONE);
                                 } else {
-                                    searchResults.setText(total_results + " Results Found.");
+                                    searchResults.setText(total_results + " Results Found");
                                     for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
                                         moviesRepository.getMovieDetails(movieResponse.getMoviesId().get(index), new OnGetMoviesCallback() {
                                             @Override
@@ -223,10 +223,10 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
                                 if (total_results == 0) {
                                     hideProcessDialog();
-                                    searchResults.setText("No Results Found.");
+                                    searchResults.setText("No Results Found");
                                     recyclerView_one.setVisibility(View.GONE);
                                 } else {
-                                    searchResults.setText(total_results + " Results Found.");
+                                    searchResults.setText(total_results + " Results Found");
                                     for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
                                         moviesRepository.getMovieDetails(movieResponse.getMoviesId().get(index), new OnGetMoviesCallback() {
                                             @Override
@@ -267,10 +267,10 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
                                 if (total_results == 0) {
                                     hideProcessDialog();
-                                    searchResults.setText("No Results Found.");
+                                    searchResults.setText("No Results Found");
                                     recyclerView_one.setVisibility(View.GONE);
                                 } else {
-                                    searchResults.setText(total_results + " Results Found.");
+                                    searchResults.setText(total_results + " Results Found");
                                     for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
                                         moviesRepository.getMovieDetails(movieResponse.getMoviesId().get(index), new OnGetMoviesCallback() {
                                             @Override
@@ -311,10 +311,10 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
                                 if (total_results == 0) {
                                     hideProcessDialog();
-                                    searchResults.setText("No Results Found.");
+                                    searchResults.setText("No Results Found");
                                     recyclerView_one.setVisibility(View.GONE);
                                 } else {
-                                    searchResults.setText(total_results + " Results Found.");
+                                    searchResults.setText(total_results + " Results Found");
                                     for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
                                         moviesRepository.getMovieDetails(movieResponse.getMoviesId().get(index), new OnGetMoviesCallback() {
                                             @Override
@@ -361,10 +361,10 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
                                 if (total_results == 0) {
                                     hideProcessDialog();
-                                    searchResults.setText("No Results Found.");
+                                    searchResults.setText("No Results Found");
                                     recyclerView_one.setVisibility(View.GONE);
                                 } else {
-                                    searchResults.setText(total_results + " Results Found.");
+                                    searchResults.setText(total_results + " Results Found");
                                     for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
                                         moviesRepository.getMovieDetails(movieResponse.getMoviesId().get(index), new OnGetMoviesCallback() {
                                             @Override
@@ -404,10 +404,10 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
                                 if (total_results == 0) {
                                     hideProcessDialog();
-                                    searchResults.setText("No Results Found.");
+                                    searchResults.setText("No Results Found");
                                     recyclerView_one.setVisibility(View.GONE);
                                 } else {
-                                    searchResults.setText(total_results + " Results Found.");
+                                    searchResults.setText(total_results + " Results Found");
                                     for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
                                         moviesRepository.getMovieDetails(movieResponse.getMoviesId().get(index), new OnGetMoviesCallback() {
                                             @Override
@@ -448,10 +448,10 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
                                 if (total_results == 0) {
                                     hideProcessDialog();
-                                    searchResults.setText("No Results Found.");
+                                    searchResults.setText("No Results Found");
                                     recyclerView_one.setVisibility(View.GONE);
                                 } else {
-                                    searchResults.setText(total_results + " Results Found.");
+                                    searchResults.setText(total_results + " Results Found");
                                     for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
                                         moviesRepository.getMovieDetails(movieResponse.getMoviesId().get(index), new OnGetMoviesCallback() {
                                             @Override
@@ -492,10 +492,10 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
                                 if (total_results == 0) {
                                     hideProcessDialog();
-                                    searchResults.setText("No Results Found.");
+                                    searchResults.setText("No Results Found");
                                     recyclerView_one.setVisibility(View.GONE);
                                 } else {
-                                    searchResults.setText(total_results + " Results Found.");
+                                    searchResults.setText(total_results + " Results Found");
                                     for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
                                         moviesRepository.getMovieDetails(movieResponse.getMoviesId().get(index), new OnGetMoviesCallback() {
                                             @Override
@@ -539,10 +539,10 @@ public class MovieScreen extends AppCompatActivity implements RecyclerViewClickL
 
                         if (total_results == 0) {
                             hideProcessDialog();
-                            searchResults.setText("No Results Found.");
+                            searchResults.setText("No Results Found");
                             recyclerView_one.setVisibility(View.GONE);
                         } else {
-                            searchResults.setText(total_results + " Results Found.");
+                            searchResults.setText(total_results + " Results Found");
                             for (int index = 0; index < movieResponse.getMoviesId().size(); index++) {
                                 moviesRepository.getMovieDetails(movieResponse.getMoviesId().get(index), new OnGetMoviesCallback() {
                                     @Override
