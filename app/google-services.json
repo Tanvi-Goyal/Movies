@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:323829227675:android:9a51e013042e935d",
         "android_client_info": {
-          "package_name": "com.tmovies"
+          "package_name": "com.tmovies.app"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "323829227675-k2b8ndfuhl3a4hlvd70k4fs0ap7albjd.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.tmovies",
+            "package_name": "com.tmovies.app",
             "certificate_hash": "7f7925ea01b956666293b0ce681e891400f8396e"
           }
         },
