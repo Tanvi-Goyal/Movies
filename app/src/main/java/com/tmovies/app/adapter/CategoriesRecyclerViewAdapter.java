@@ -1,4 +1,4 @@
-package com.tmovies.adapter;
+package com.tmovies.app.adapter;
 
 import android.content.Context;
 import android.os.Build;
@@ -9,9 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.tmovies.R;
-import com.tmovies.constants.AppConstants;
-import com.tmovies.interfaces.RecyclerViewClickListener;
+import com.tmovies.app.R;
+import com.tmovies.app.constants.AppConstants;
+import com.tmovies.app.interfaces.RecyclerViewClickListener;
 
 import java.util.ArrayList;
 

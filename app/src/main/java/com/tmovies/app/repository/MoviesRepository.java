@@ -1,13 +1,13 @@
-package com.tmovies.repository;
+package com.tmovies.app.repository;
 
 import android.support.annotation.NonNull;
 
-import com.tmovies.model.Movie;
-import com.tmovies.model.MovieId;
-import com.tmovies.model.MovieResponse;
-import com.tmovies.interfaces.OnGetMoviesCallback;
-import com.tmovies.interfaces.OnGetMoviesResponseCallback;
-import com.tmovies.interfaces.TMDBApiService;
+import com.tmovies.app.model.Movie;
+import com.tmovies.app.model.MovieId;
+import com.tmovies.app.model.MovieResponse;
+import com.tmovies.app.interfaces.OnGetMoviesCallback;
+import com.tmovies.app.interfaces.OnGetMoviesResponseCallback;
+import com.tmovies.app.interfaces.TMDBApiService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -15,9 +15,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.tmovies.constants.ApiConstants.API_KEY;
-import static com.tmovies.constants.ApiConstants.BASE_URL;
-import static com.tmovies.constants.ApiConstants.LANGUAGE;
+import static com.tmovies.app.constants.ApiConstants.API_KEY;
+import static com.tmovies.app.constants.ApiConstants.BASE_URL;
+import static com.tmovies.app.constants.ApiConstants.LANGUAGE;
 
 public class MoviesRepository {
 

@@ -1,4 +1,4 @@
-package com.tmovies.activities;
+package com.tmovies.app.activities;
 
 import android.content.Intent;
 import android.os.Build;
@@ -14,10 +14,10 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.tmovies.R;
-import com.tmovies.adapter.CategoriesRecyclerViewAdapter;
-import com.tmovies.constants.AppConstants;
-import com.tmovies.interfaces.RecyclerViewClickListener;
+import com.tmovies.app.R;
+import com.tmovies.app.adapter.CategoriesRecyclerViewAdapter;
+import com.tmovies.app.constants.AppConstants;
+import com.tmovies.app.interfaces.RecyclerViewClickListener;
 
 import java.util.ArrayList;
 

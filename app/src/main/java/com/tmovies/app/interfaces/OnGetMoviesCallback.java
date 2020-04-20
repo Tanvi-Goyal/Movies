@@ -1,6 +1,6 @@
-package com.tmovies.interfaces;
+package com.tmovies.app.interfaces;
 
-import com.tmovies.model.Movie;
+import com.tmovies.app.model.Movie;
 
 public interface OnGetMoviesCallback {
 

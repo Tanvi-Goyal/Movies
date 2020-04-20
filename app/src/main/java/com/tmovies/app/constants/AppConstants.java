@@ -1,4 +1,4 @@
-package com.tmovies.constants;
+package com.tmovies.app.constants;
 
 public class AppConstants {
     public static final String TYPE_MOVIES = "movies";

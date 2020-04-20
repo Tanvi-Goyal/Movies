@@ -1,7 +1,6 @@
-package com.tmovies.interfaces;
+package com.tmovies.app.interfaces;
 
-import com.tmovies.model.Movie;
-import com.tmovies.model.MovieResponse;
+import com.tmovies.app.model.MovieResponse;
 
 public interface OnGetMoviesResponseCallback {
     void onMovieResponseSuccess(MovieResponse movieResponse);

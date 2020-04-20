@@ -1,4 +1,4 @@
-package com.tmovies.constants;
+package com.tmovies.app.constants;
 
 public class ApiConstants {
     public static final String BASE_URL = "https://api.themoviedb.org/3/";

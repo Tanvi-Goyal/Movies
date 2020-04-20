@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tmovies">
+    package="com.tmovies.app">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.tmovies.activities.SplashScreen">
+        <activity android:name="com.tmovies.app.activities.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -24,9 +24,9 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name="com.tmovies.activities.HomeScreen" />
-        <activity android:name="com.tmovies.activities.MovieScreen" />
-        <activity android:name="com.tmovies.activities.WebViewActivity"></activity>
+        <activity android:name="com.tmovies.app.activities.HomeScreen" />
+        <activity android:name="com.tmovies.app.activities.MovieScreen" />
+        <activity android:name="com.tmovies.app.activities.WebViewActivity"></activity>
     </application>
 
 </manifest>

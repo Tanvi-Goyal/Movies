@@ -1,4 +1,4 @@
-package com.tmovies.activities;
+package com.tmovies.app.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -16,17 +16,17 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.tmovies.R;
-import com.tmovies.adapter.PaginatonListAdapter;
-import com.tmovies.constants.AppConstants;
-import com.tmovies.model.Movie;
-import com.tmovies.model.MovieResponse;
-import com.tmovies.repository.MoviesRepository;
-import com.tmovies.interfaces.OnGetMoviesCallback;
-import com.tmovies.interfaces.OnGetMoviesResponseCallback;
-import com.tmovies.utils.PaginationScrollListener;
-import com.tmovies.interfaces.RecyclerViewClickListener;
-import com.tmovies.db.SQLiteDatabaseHelper;
+import com.tmovies.app.R;
+import com.tmovies.app.adapter.PaginatonListAdapter;
+import com.tmovies.app.constants.AppConstants;
+import com.tmovies.app.model.Movie;
+import com.tmovies.app.model.MovieResponse;
+import com.tmovies.app.repository.MoviesRepository;
+import com.tmovies.app.interfaces.OnGetMoviesCallback;
+import com.tmovies.app.interfaces.OnGetMoviesResponseCallback;
+import com.tmovies.app.utils.PaginationScrollListener;
+import com.tmovies.app.interfaces.RecyclerViewClickListener;
+import com.tmovies.app.db.SQLiteDatabaseHelper;
 
 import java.util.ArrayList;
 

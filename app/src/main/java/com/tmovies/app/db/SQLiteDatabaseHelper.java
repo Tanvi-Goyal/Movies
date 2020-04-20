@@ -1,4 +1,4 @@
-package com.tmovies.db;
+package com.tmovies.app.db;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.tmovies.model.Movie;
+import com.tmovies.app.model.Movie;
 
 public class SQLiteDatabaseHelper extends SQLiteOpenHelper {
 

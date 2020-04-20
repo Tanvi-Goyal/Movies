@@ -1,4 +1,4 @@
-package com.tmovies.activities;
+package com.tmovies.app.activities;
 
 import android.content.Intent;
 import android.os.Build;
@@ -10,8 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.tmovies.R;
-import com.tmovies.db.SQLiteDatabaseHelper;
+import com.tmovies.app.R;
+import com.tmovies.app.db.SQLiteDatabaseHelper;
 
 public class SplashScreen extends AppCompatActivity {
 

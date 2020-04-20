@@ -1,4 +1,4 @@
-package com.tmovies.adapter;
+package com.tmovies.app.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -14,9 +14,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.tmovies.R;
-import com.tmovies.model.Movie;
-import com.tmovies.interfaces.RecyclerViewClickListener;
+import com.tmovies.app.R;
+import com.tmovies.app.model.Movie;
+import com.tmovies.app.interfaces.RecyclerViewClickListener;
 
 import java.util.ArrayList;
 
